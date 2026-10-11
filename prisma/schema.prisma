@@ -1,0 +1,203 @@
+// Prisma Schema for Technology Solutions Company
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InquiryType {
+  BUSINESS
+  STUDENT
+  COLLABORATION
+  GENERAL
+}
+
+enum InquiryStatus {
+  NEW
+  IN_REVIEW
+  CONTACTED
+  CLOSED
+  ARCHIVED
+}
+
+model Inquiry {
+  id              String         @id @default(uuid())
+  type            InquiryType    @default(GENERAL)
+  name            String
+  email           String
+  organization    String?
+  projectCategory String?
+  budgetRange     String?
+  timeline        String?
+  message         String
+  status          InquiryStatus  @default(NEW)
+  internalNotes   String?
+  consentGiven    Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum OpportunityType {
+  TECHNICAL_INTERNSHIP
+  PROJECT_APPRENTICESHIP
+  RESEARCH_FELLOWSHIP
+}
+
+model InternshipOpportunity {
+  id                 String                  @id @default(uuid())
+  title              String
+  slug               String                  @unique
+  department         String
+  type               OpportunityType         @default(TECHNICAL_INTERNSHIP)
+  description        String
+  eligibility        String
+  skills             String[]
+  duration           String
+  locationMode       String                  @default("Remote")
+  compensationStatus String
+  deadline           String
+  availablePositions Int                     @default(1)
+  published          Boolean                 @default(true)
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+
+  applications       InternshipApplication[]
+
+  @@index([slug])
+  @@index([published])
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  SHORTLISTED
+  ACCEPTED
+  DECLINED
+}
+
+model InternshipApplication {
+  id                  String                @id @default(uuid())
+  opportunityId       String
+  opportunity         InternshipOpportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  fullName            String
+  email               String
+  phone               String?
+  education           String
+  skills              String
+  motivationStatement String
+  portfolioUrl        String?
+  linkedInUrl         String?
+  resumeUrl           String?
+  status              ApplicationStatus     @default(SUBMITTED)
+  internalNotes       String?
+  consentGiven        Boolean               @default(true)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  @@index([opportunityId])
+  @@index([email])
+  @@index([status])
+}
+
+enum MentorCollaborationType {
+  MENTOR_STUDENTS
+  CONDUCT_WORKSHOP
+  ARCHITECTURE_REVIEW
+  PROJECT_COLLABORATION
+  CONSULTING_PARTNERSHIP
+}
+
+model MentorInquiry {
+  id                      String                  @id @default(uuid())
+  fullName                String
+  email                   String
+  areaOfExpertise         String
+  collaborationPreference MentorCollaborationType @default(MENTOR_STUDENTS)
+  linkedInOrWebsiteUrl    String?
+  introduction            String
+  status                  InquiryStatus           @default(NEW)
+  internalNotes           String?
+  consentGiven            Boolean                 @default(true)
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+enum ProjectStatus {
+  COMPLETED
+  DEMONSTRATION
+  PROTOTYPE
+  WORK_IN_PROGRESS
+}
+
+model Project {
+  id               String        @id @default(uuid())
+  title            String
+  slug             String        @unique
+  summary          String
+  problemStatement String
+  solution         String
+  technologies     String[]
+  category         String
+  status           ProjectStatus @default(DEMONSTRATION)
+  thumbnailUrl     String?
+  demoUrl          String?
+  repoUrl          String?
+  published        Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([published])
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  REVIEWER
+}
+
+model AdminUser {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  passwordHash     String
+  name             String
+  role             AdminRole @default(ADMIN)
+  isActive         Boolean   @default(true)
+  mfaEnabled       Boolean   @default(false)
+  mfaSecret        String?
+  mfaRecoveryCodes String[]  @default([])
+  tokenVersion     Int       @default(1)
+  lastMfaStep      Int?
+  lastLoginAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([email])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  adminId    String
+  adminEmail String
+  action     String
+  resource   String
+  targetId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([adminId])
+  @@index([action])
+  @@index([createdAt])
+}

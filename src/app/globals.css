@@ -1,1 +1,89 @@
 @import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #080B14;
+    --bg-secondary: #0D1220;
+    --bg-elevated: #121A2B;
+    --bg-surface: #182238;
+    --accent-primary: #4F8CFF;
+    --accent-secondary: #8B5CF6;
+    --accent-cyan: #35D6E8;
+    --text-main: #F8FAFC;
+    --text-muted: #A7B0C0;
+    --border-subtle: rgba(148, 163, 184, 0.12);
+    --border-highlight: rgba(79, 140, 255, 0.35);
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    selection-background-color: #4F8CFF;
+    selection-color: #080B14;
+  }
+
+  ::selection {
+    background: #4F8CFF;
+    color: #080B14;
+  }
+}
+
+/* Glassmorphism Surface */
+.glass-panel {
+  background: rgba(18, 26, 43, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: var(--border-highlight);
+  background: rgba(24, 34, 56, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(79, 140, 255, 0.15);
+}
+
+/* Radiant Background Glows */
+.radial-glow-blue {
+  background: radial-gradient(circle at 50% 50%, rgba(79, 140, 255, 0.15) 0%, transparent 60%);
+}
+
+.radial-glow-violet {
+  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 60%);
+}
+
+/* Gradient text utility */
+.gradient-text-primary {
+  background: linear-gradient(135deg, #F8FAFC 20%, #4F8CFF 60%, #35D6E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-accent {
+  background: linear-gradient(135deg, #4F8CFF 0%, #8B5CF6 50%, #35D6E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* High-contrast focus outline for accessibility */
+:focus-visible {
+  outline: 2px solid #35D6E8;
+  outline-offset: 3px;
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
