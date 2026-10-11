@@ -68,8 +68,8 @@ export function Navbar() {
               <span className="text-base font-bold tracking-tight text-white group-hover:text-blue-300 transition-colors">
                 {brandConfig.shortName}
               </span>
-              <span className="text-[10px] text-slate-400 tracking-wider uppercase font-mono">
-                Tech Solutions
+              <span className="text-[10px] text-cyan-400/90 tracking-widest uppercase font-mono font-medium">
+                Solutions
               </span>
             </div>
           </Link>

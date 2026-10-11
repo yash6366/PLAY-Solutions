@@ -54,8 +54,7 @@ export function MentorInquiryForm() {
       } else if (res.status === 503) {
         setSubmitStatus("unconfigured");
         setResponseMessage(
-          result.error ||
-            "Database backend not yet connected. Set DATABASE_URL in .env to store mentor inquiries."
+          "Our mentorship inquiry portal is briefly updating. You can also reach our engineering coordinators directly at contact@playqsolutions.com."
         );
       } else {
         setSubmitStatus("error");
@@ -94,12 +93,18 @@ export function MentorInquiryForm() {
       )}
 
       {submitStatus === "unconfigured" && (
-        <div className="p-4 mb-6 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs">
-          <div className="flex items-center gap-2 font-bold text-amber-300 mb-1">
+        <div className="p-4 mb-6 rounded-2xl bg-blue-950/40 border border-blue-500/40 text-blue-200 text-xs">
+          <div className="flex items-center gap-2 font-bold text-cyan-300 mb-1">
             <AlertCircle className="w-4 h-4" />
-            <span>Database Connection Notice</span>
+            <span>Direct Coordinator Access</span>
           </div>
-          <p>{responseMessage}</p>
+          <p className="text-slate-300 mb-2">{responseMessage}</p>
+          <a
+            href="mailto:contact@playqsolutions.com?subject=Industry%20Mentorship%20Inquiry%20-%20PLAYQ%20Solutions"
+            className="inline-flex items-center gap-1 font-mono text-cyan-300 hover:underline"
+          >
+            Email: contact@playqsolutions.com &rarr;
+          </a>
         </div>
       )}
 

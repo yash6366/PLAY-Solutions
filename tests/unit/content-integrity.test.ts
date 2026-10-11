@@ -6,11 +6,11 @@ import { internshipOpportunities } from "@/content/internships";
 import { mainNav } from "@/config/navigation";
 
 describe("Content Integrity & Centralized Brand Configuration", () => {
-  it("should have a non-empty company brand configuration", () => {
-    expect(brandConfig.companyName).toBeTruthy();
-    expect(brandConfig.shortName).toBeTruthy();
+  it("should have a non-empty company brand configuration matching PLAYQ Solutions", () => {
+    expect(brandConfig.companyName).toBe("PLAYQ Solutions");
+    expect(brandConfig.shortName).toBe("PLAYQ");
     expect(brandConfig.tagline).toBeTruthy();
-    expect(brandConfig.primaryEmail).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    expect(brandConfig.primaryEmail).toBe("contact@playqsolutions.com");
   });
 
   it("should have all 14 service offerings with valid slugs and deliverables", () => {

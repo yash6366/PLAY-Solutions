@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, ContactFormData } from "@/lib/validation/schemas";
 import { Button } from "@/components/ui/Button";
+import { brandConfig } from "@/config/brand";
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
 
 interface ContactFormProps {
@@ -66,8 +67,7 @@ export function ContactForm({ initialType = "business" }: ContactFormProps) {
       } else if (res.status === 503) {
         setSubmitStatus("unconfigured");
         setResponseMessage(
-          result.error ||
-            "The database backend has not yet been connected. Set DATABASE_URL to enable live submissions."
+          "Our online submission portal is temporarily experiencing a connectivity delay. Please contact our team directly via email."
         );
       } else {
         setSubmitStatus("error");
@@ -135,15 +135,28 @@ export function ContactForm({ initialType = "business" }: ContactFormProps) {
       {submitStatus === "unconfigured" && (
         <div
           role="alert"
-          className="p-6 mb-8 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 flex flex-col gap-2"
+          className="p-6 mb-8 rounded-2xl bg-blue-950/40 border border-blue-500/40 text-blue-200 flex flex-col gap-3"
         >
           <div className="flex items-center gap-2.5">
-            <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
-            <h4 className="font-bold text-white text-base">Backend Configuration Notice</h4>
+            <AlertCircle className="w-5 h-5 text-cyan-400 shrink-0" />
+            <h4 className="font-bold text-white text-base">Direct Communication Fallback</h4>
           </div>
-          <p className="text-sm text-amber-300">{responseMessage}</p>
-          <p className="text-xs text-amber-400/80">
-            For development testing, set <code className="font-mono bg-black/40 px-1 py-0.5 rounded">DATABASE_URL=memory</code> or configure your managed PostgreSQL credentials in <code className="font-mono bg-black/40 px-1 py-0.5 rounded">.env</code>.
+          <p className="text-sm text-slate-300 leading-relaxed">
+            Our automated dispatch gateway is momentarily experiencing a delay. You can connect with our engineering team directly at:
+          </p>
+          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-3">
+            <span className="font-mono text-cyan-300 text-xs sm:text-sm font-semibold select-all">
+              {brandConfig.primaryEmail}
+            </span>
+            <a
+              href={`mailto:${brandConfig.primaryEmail}?subject=Project%20Inquiry%20-%20PLAYQ%20Solutions`}
+              className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors"
+            >
+              Email Directly
+            </a>
+          </div>
+          <p className="text-xs text-slate-400">
+            All direct inquiries receive an engineer response within 1–2 business days.
           </p>
         </div>
       )}

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Staff Portal | PLAYTS - PLAY Tech Solutions",
-    template: "%s | PLAYTS Staff Portal",
+    default: "Staff Portal | PLAYQ Solutions",
+    template: "%s | PLAYQ Staff Portal",
   },
   robots: {
     index: false,

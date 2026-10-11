@@ -47,30 +47,42 @@
 
 /* Engineering Studio Surfaces */
 .glass-panel {
-  background: rgba(14, 20, 34, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(14, 20, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
 }
 
+.glass-panel-elevated {
+  background: rgba(18, 26, 44, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6);
+}
+
 .glass-panel-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
   border-color: var(--border-highlight);
-  background: rgba(18, 26, 44, 0.88);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(59, 130, 246, 0.15);
+  background: rgba(18, 26, 44, 0.92);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(59, 130, 246, 0.2);
 }
 
 /* Subtle Architectural Atmosphere */
 .radial-glow-blue {
-  background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 65%);
 }
 
 .radial-glow-cyan {
-  background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%);
+}
+
+.radial-glow-violet {
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
 }
 
 /* Refined Gradient Utilities */
@@ -86,10 +98,16 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* High-contrast focus outline for accessibility */
+.gradient-border-mask {
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* High-contrast focus outline for accessibility (WCAG 2.2 AA) */
 :focus-visible {
   outline: 2px solid #38BDF8;
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* Prefers reduced motion */

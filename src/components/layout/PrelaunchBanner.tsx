@@ -15,11 +15,11 @@ export function PrelaunchBanner() {
   }
 
   const checklistItems = [
-    { label: "Update brandConfig.companyName and shortName in src/config/brand.ts", done: false },
-    { label: "Set official production primaryEmail and contactPhone in brand config", done: false },
+    { label: "Verify brandConfig.companyName is PLAYQ Solutions in src/config/brand.ts", done: true },
+    { label: "Confirm official primaryEmail is contact@playqsolutions.com in brand config", done: true },
     { label: "Connect managed PostgreSQL by configuring DATABASE_URL in .env", done: false },
-    { label: "Verify legal privacy policy and terms before public client launch", done: false },
-    { label: "Set NEXT_PUBLIC_SITE_URL to registered domain name", done: false },
+    { label: "Verify legal privacy policy and terms before commercial client contracts", done: true },
+    { label: "Set NEXT_PUBLIC_SITE_URL to registered production domain", done: false },
   ];
 
   return (

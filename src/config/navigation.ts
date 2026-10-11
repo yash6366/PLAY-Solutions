@@ -25,7 +25,7 @@ export const footerNav = {
     { title: "Technology Consulting", href: "/services/tech-consulting" },
   ],
   ecosystem: [
-    { title: "About PLAYTS", href: "/about" },
+    { title: "About PLAYQ", href: "/about" },
     { title: "Services Catalog", href: "/services" },
     { title: "Industry Verticals", href: "/industries" },
     { title: "Selected Projects", href: "/projects" },
