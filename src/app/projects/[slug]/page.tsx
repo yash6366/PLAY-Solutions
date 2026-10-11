@@ -19,6 +19,7 @@ import {
   ExternalLink,
   Sparkles,
   GitBranch,
+  Workflow,
 } from "lucide-react";
 
 interface PageProps {
@@ -80,6 +81,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <Badge variant={statusVariantMap[project.status] || "cyan"}>
                 {project.status}
               </Badge>
+              {project.keyMetric && (
+                <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-800/50 text-[11px] font-mono text-cyan-300">
+                  <Sparkles className="w-3 h-3 text-cyan-400" />
+                  {project.keyMetric}
+                </span>
+              )}
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -108,11 +115,44 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-8 flex flex-col gap-10">
+            {/* System Data Flow & Pipeline Architecture */}
+            {project.architectureDiagramSteps && project.architectureDiagramSteps.length > 0 && (
+              <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <Workflow className="w-5 h-5 text-cyan-400" />
+                  <h2 className="text-xl font-bold text-white">System Data Flow &amp; Pipeline Architecture</h2>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
+                  End-to-end data lifecycle from input boundary ingestion through broker processing, storage, and presentation:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {project.architectureDiagramSteps.map((step, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-left flex flex-col justify-between gap-2 shadow-sm relative overflow-hidden"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                          Stage {idx + 1}
+                        </span>
+                        {idx < project.architectureDiagramSteps!.length - 1 && (
+                          <span className="text-slate-500 font-mono text-xs">→</span>
+                        )}
+                      </div>
+                      <span className="text-xs font-semibold text-slate-200 leading-snug">
+                        {step}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* The Technical Challenge */}
             <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
               <div className="flex items-center gap-2.5 mb-4">
                 <Terminal className="w-5 h-5 text-rose-400" />
-                <h2 className="text-xl font-bold text-white">The Technical Challenge</h2>
+                <h2 className="text-xl font-bold text-white">The Technical Challenge &amp; Constraints</h2>
               </div>
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                 {project.problemStatement}
@@ -157,12 +197,35 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               )}
             </section>
 
+            {/* Core Engineering Highlights & Trade-offs */}
+            {project.technicalHighlights && project.technicalHighlights.length > 0 && (
+              <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
+                <div className="flex items-center gap-2.5 mb-6">
+                  <Cpu className="w-5 h-5 text-indigo-400" />
+                  <h2 className="text-xl font-bold text-white">Deep Technical Highlights &amp; Trade-offs</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {project.technicalHighlights.map((highlight, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/70 flex items-start gap-3"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-indigo-400 mt-1 shrink-0" />
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        {highlight}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* Key Features */}
             {project.importantFeatures && project.importantFeatures.length > 0 && (
               <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
                 <div className="flex items-center gap-2.5 mb-6">
                   <Sparkles className="w-5 h-5 text-violet-400" />
-                  <h2 className="text-xl font-bold text-white">Key Capabilities & Features</h2>
+                  <h2 className="text-xl font-bold text-white">Key Capabilities &amp; Features</h2>
                 </div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
                   {project.importantFeatures.map((feat, idx) => (
@@ -182,7 +245,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
               <div className="flex items-center gap-2.5 mb-6">
                 <Layers className="w-5 h-5 text-blue-400" />
-                <h2 className="text-xl font-bold text-white">Verified Deliverables & Artifacts</h2>
+                <h2 className="text-xl font-bold text-white">Verified Deliverables &amp; Artifacts</h2>
               </div>
               <ul className="space-y-3 text-sm text-slate-300">
                 {project.deliverables.map((item, idx) => (
@@ -199,7 +262,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
                 <div className="flex items-center gap-2.5 mb-6">
                   <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                  <h2 className="text-xl font-bold text-white">Security & Reliability Safeguards</h2>
+                  <h2 className="text-xl font-bold text-white">Security &amp; Reliability Safeguards</h2>
                 </div>
                 <ul className="space-y-3 text-sm text-slate-300">
                   {project.securityAndReliability.map((sec, idx) => (
@@ -217,7 +280,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
                 <div className="flex items-center gap-2.5 mb-6">
                   <GitBranch className="w-5 h-5 text-cyan-400" />
-                  <h2 className="text-xl font-bold text-white">Testing Methodology & QA Gates</h2>
+                  <h2 className="text-xl font-bold text-white">Testing Methodology &amp; QA Gates</h2>
                 </div>
                 <ul className="space-y-3 text-sm text-slate-300">
                   {project.testingMethodology.map((test, idx) => (
@@ -253,7 +316,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <section className="p-8 rounded-3xl glass-panel border border-slate-800/80">
                 <div className="flex items-center gap-2.5 mb-4">
                   <AlertCircle className="w-5 h-5 text-slate-400" />
-                  <h2 className="text-xl font-bold text-white">Known Limitations & Scope Transparency</h2>
+                  <h2 className="text-xl font-bold text-white">Known Limitations &amp; Scope Transparency</h2>
                 </div>
                 <p className="text-xs text-slate-400 mb-4">
                   To preserve architectural honesty, we clearly disclose the current operational bounds of this implementation:
@@ -324,13 +387,19 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                     {project.status}
                   </Badge>
                 </div>
+                {project.keyMetric && (
+                  <div className="flex items-center justify-between">
+                    <span>Key Metric:</span>
+                    <span className="text-cyan-300 font-mono text-[11px] font-semibold">{project.keyMetric}</span>
+                  </div>
+                )}
                 <div className="flex items-center justify-between">
                   <span>Code Ownership:</span>
                   <span className="text-slate-200 font-medium">Full Client IP Ownership</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Delivery Model:</span>
-                  <span className="text-slate-200 font-medium">Sprints & CI Gates</span>
+                  <span className="text-slate-200 font-medium">Sprints &amp; CI Gates</span>
                 </div>
               </div>
             </div>

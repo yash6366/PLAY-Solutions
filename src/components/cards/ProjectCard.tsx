@@ -2,13 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { ProjectItem } from "@/content/projects";
 import { Badge } from "@/components/ui/Badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 interface ProjectCardProps {
   project: ProjectItem;
+  showDeepPreview?: boolean;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, showDeepPreview = false }: ProjectCardProps) {
   const statusVariantMap: Record<string, "success" | "cyan" | "violet" | "warning" | "secondary"> = {
     Completed: "success",
     Demonstration: "cyan",
@@ -18,8 +19,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
     "Work in Progress": "warning",
   };
 
+  const displayDescription = project.shortSummary || project.summary;
+
   return (
-    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl glass-panel glass-panel-hover border border-slate-800/80 group">
+    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl glass-panel glass-panel-hover border border-slate-800/80 group transition-all duration-300 hover:border-cyan-500/40">
       <div className="flex flex-col gap-4">
         {/* Header Tags */}
         <div className="flex items-center justify-between gap-2">
@@ -32,40 +35,50 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+        <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
           <Link href={`/projects/${project.slug}`}>
             {project.title}
           </Link>
         </h3>
 
-        {/* Summary */}
+        {/* Shortened, highly readable description */}
         <p className="text-sm text-slate-300 leading-relaxed">
-          {project.summary}
+          {displayDescription}
         </p>
 
-        {/* Problem & Solution Preview */}
-        <div className="bg-slate-950/70 rounded-xl p-4 border border-slate-800/80 text-xs flex flex-col gap-2.5">
-          <div>
-            <span className="font-mono text-slate-400 block mb-0.5 font-semibold text-[11px]">
-              Technical Problem:
-            </span>
-            <p className="text-slate-300 line-clamp-2 leading-relaxed">
-              {project.problemStatement}
-            </p>
+        {/* Key Architectural Highlight */}
+        {project.keyMetric && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-cyan-950/30 border border-cyan-800/40 text-xs text-cyan-300">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <span className="font-mono text-[11px]">{project.keyMetric}</span>
           </div>
-          <div>
-            <span className="font-mono text-cyan-400 block mb-0.5 font-semibold text-[11px]">
-              Architectural Solution:
-            </span>
-            <p className="text-slate-300 line-clamp-2 leading-relaxed">
-              {project.solution}
-            </p>
+        )}
+
+        {/* Optional Deep Preview (when explicitly requested; otherwise moved to case study) */}
+        {showDeepPreview && (
+          <div className="bg-slate-950/70 rounded-xl p-4 border border-slate-800/80 text-xs flex flex-col gap-2.5 mt-1">
+            <div>
+              <span className="font-mono text-slate-400 block mb-0.5 font-semibold text-[11px]">
+                Technical Problem:
+              </span>
+              <p className="text-slate-300 line-clamp-2 leading-relaxed">
+                {project.problemStatement}
+              </p>
+            </div>
+            <div>
+              <span className="font-mono text-cyan-400 block mb-0.5 font-semibold text-[11px]">
+                Architectural Solution:
+              </span>
+              <p className="text-slate-300 line-clamp-2 leading-relaxed">
+                {project.solution}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Footer */}
-      <div className="pt-6 mt-6 border-t border-slate-800/80 flex items-center justify-between">
+      <div className="pt-5 mt-5 border-t border-slate-800/80 flex items-center justify-between gap-3">
         <div className="flex flex-wrap gap-1.5">
           {project.technologies.slice(0, 3).map((tech, i) => (
             <span
@@ -79,9 +92,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <Link
           href={`/projects/${project.slug}`}
-          className="text-xs font-semibold text-blue-400 hover:text-white flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5"
+          className="text-xs font-semibold text-cyan-400 hover:text-white flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5 shrink-0"
         >
-          <span>View Spec</span>
+          <span>View Case Study</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
