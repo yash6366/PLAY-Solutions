@@ -266,6 +266,6 @@ export const projectsData: ProjectItem[] = [
       { title: "Technology Consulting & Ongoing Support", slug: "tech-consulting" },
     ],
     published: true,
-    isFeatured: false,
+    isFeatured: true,
   },
 ];

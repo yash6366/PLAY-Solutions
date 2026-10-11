@@ -5,7 +5,16 @@ import { Button } from "@/components/ui/Button";
 import { ArrowRight, FolderSearch } from "lucide-react";
 
 export function ProjectShowcase() {
-  const publishedProjects = projectsData.filter((p) => p.published && p.isFeatured);
+  const selectedSlugs = [
+    "sentinel-analytics",
+    "aegis-rag-engine",
+    "pulse-health-portal",
+    "mesh-api-gateway",
+  ];
+
+  const featuredProjects = selectedSlugs
+    .map((slug) => projectsData.find((p) => p.slug === slug))
+    .filter((p): p is (typeof projectsData)[number] => Boolean(p && p.published));
 
   return (
     <section className="py-24 bg-slate-950/70 border-t border-slate-850 relative" aria-labelledby="projects-heading">
@@ -19,11 +28,11 @@ export function ProjectShowcase() {
               id="projects-heading"
               className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
             >
-              Architectural Systems & Live Prototypes
+              Selected Systems &amp; Technical Prototypes
             </h2>
             <p className="text-base text-slate-300 mt-3 leading-relaxed">
               Explore concrete engineering implementations, telemetry platforms, and privacy-first
-              AI engines built to demonstrate production architectural standards.
+              AI engines built to demonstrate production architectural standards and verified trade-offs.
             </p>
           </div>
 
@@ -33,9 +42,9 @@ export function ProjectShowcase() {
           </Button>
         </div>
 
-        {publishedProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {publishedProjects.map((project) => (
+        {featuredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>

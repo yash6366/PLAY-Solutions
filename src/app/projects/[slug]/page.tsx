@@ -326,7 +326,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Code Ownership:</span>
-                  <span className="text-slate-200 font-medium">100% Client Owned</span>
+                  <span className="text-slate-200 font-medium">Full Client IP Ownership</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Delivery Model:</span>

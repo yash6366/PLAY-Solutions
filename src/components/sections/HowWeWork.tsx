@@ -1,36 +1,34 @@
 import React from "react";
-import { Compass, PenTool, Cpu, ShieldCheck, Rocket } from "lucide-react";
+import { Compass, PenTool, Cpu, Rocket } from "lucide-react";
 
 export function HowWeWork() {
-  const steps = [
+  const stages = [
     {
       step: "01",
-      title: "Deconstruct & Scope",
-      desc: "We analyze technical constraints, decompose business logic, and establish measurable performance benchmarks before writing a line of code.",
+      title: "Discover and Plan",
+      desc: "We analyze technical constraints, decompose business requirements, and define clear milestone deliverables before writing code.",
+      outcome: "Clear technical scope and domain architecture plan.",
       icon: Compass,
     },
     {
-      title: "Architecture & Contracts",
       step: "02",
-      desc: "We define explicit schema types, API contracts, data models, and component boundaries to eliminate ambiguity and integration friction.",
+      title: "Design and Architect",
+      desc: "We establish explicit data schemas, API contracts, domain boundaries, and security perimeters to eliminate integration ambiguity.",
+      outcome: "Type-safe schemas, API contracts & system specifications.",
       icon: PenTool,
     },
     {
       step: "03",
-      title: "Test-Driven Development",
-      desc: "Iterative sprint delivery with strict TypeScript types, automated unit & integration test gates, and continuous code quality audits.",
+      title: "Build and Validate",
+      desc: "We implement features in focused sprints backed by strict TypeScript types, automated test suites, and regular demonstration reviews.",
+      outcome: "Verifiable sprint branches passing automated test gates.",
       icon: Cpu,
     },
     {
       step: "04",
-      title: "Security & Accessibility",
-      desc: "Rigorous verification: CSRF/rate-limit checks, secret scans, WCAG accessibility reviews, and cross-browser regression testing.",
-      icon: ShieldCheck,
-    },
-    {
-      step: "05",
-      title: "Deploy & Handover",
-      desc: "Automated containerized deployment, zero-downtime cutover, telemetry monitoring, and comprehensive developer documentation handover.",
+      title: "Deploy and Support",
+      desc: "We configure containerized environments, automate repeatable deployment pipelines, and conduct complete codebase and runbook handover.",
+      outcome: "Documented deployment pipelines and full IP handover.",
       icon: Rocket,
     },
   ];
@@ -54,28 +52,40 @@ export function HowWeWork() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-          {steps.map((item, index) => {
+        {/* 4 Clear Stages */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stages.map((item) => {
             const Icon = item.icon;
             return (
               <div
-                key={index}
-                className="relative p-6 sm:p-7 rounded-2xl glass-panel border border-slate-800/80 flex flex-col justify-between group hover:border-blue-500/40 transition-colors"
+                key={item.step}
+                className="relative p-7 rounded-2xl glass-panel glass-panel-hover border border-slate-800/80 flex flex-col justify-between group transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
                     <span className="text-2xl font-black font-mono text-slate-600 group-hover:text-cyan-400 transition-colors">
                       {item.step}
                     </span>
-                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-blue-400" />
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-blue-400" />
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">
+
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
                     {item.desc}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-slate-850">
+                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block font-semibold mb-1">
+                    Stage Outcome:
+                  </span>
+                  <p className="text-xs text-cyan-300/90 leading-normal">
+                    {item.outcome}
                   </p>
                 </div>
               </div>

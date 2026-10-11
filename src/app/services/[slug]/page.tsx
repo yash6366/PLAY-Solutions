@@ -204,7 +204,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <div className="pt-4 border-t border-slate-850 text-xs text-slate-400 space-y-2">
                 <div className="flex items-center justify-between">
                   <span>Architecture Ownership:</span>
-                  <span className="text-slate-200 font-medium">100% Client Owned</span>
+                  <span className="text-slate-200 font-medium">Full Client IP Ownership</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Test Coverage Target:</span>

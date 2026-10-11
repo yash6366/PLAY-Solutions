@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { brandConfig } from "@/config/brand";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -11,7 +11,27 @@ export const metadata: Metadata = {
     "Discuss a custom engineering project, explore student apprenticeship admissions, or propose an industry mentorship collaboration.",
 };
 
-export default function ContactPage() {
+interface ContactPageProps {
+  searchParams?: Promise<{ type?: string; service?: string; project?: string }>;
+}
+
+async function ContactFormContainer({
+  searchParams,
+}: {
+  searchParams?: Promise<{ type?: string; service?: string; project?: string }>;
+}) {
+  const resolvedParams = searchParams ? await searchParams : {};
+  const validTypes = ["business", "student", "collaboration", "general"] as const;
+  type InquiryType = (typeof validTypes)[number];
+  const initialType: InquiryType =
+    resolvedParams.type && (validTypes as readonly string[]).includes(resolvedParams.type)
+      ? (resolvedParams.type as InquiryType)
+      : "business";
+
+  return <ContactForm initialType={initialType} />;
+}
+
+export default function ContactPage({ searchParams }: ContactPageProps) {
   return (
     <div className="pt-28 pb-24">
       {/* Header */}
@@ -98,9 +118,11 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right: Contact Form */}
+          {/* Right: Contact Form wrapped in Suspense for dynamic searchParams */}
           <div className="lg:col-span-8">
-            <ContactForm initialType="business" />
+            <Suspense fallback={<ContactForm initialType="business" />}>
+              <ContactFormContainer searchParams={searchParams} />
+            </Suspense>
           </div>
         </div>
       </section>

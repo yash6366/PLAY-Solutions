@@ -1,31 +1,34 @@
 import React from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { TrustStrip } from "@/components/sections/TrustStrip";
-import { BusinessChallenges } from "@/components/sections/BusinessChallenges";
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
-import { CompanyPrinciples } from "@/components/sections/CompanyPrinciples";
-import { HowWeWork } from "@/components/sections/HowWeWork";
+import { WhyPlayqSection } from "@/components/sections/WhyPlayqSection";
 import { IndustriesPreview } from "@/components/sections/IndustriesPreview";
-import { TechnicalInsights } from "@/components/sections/TechnicalInsights";
-import { CareersLearningSection } from "@/components/sections/CareersLearningSection";
-import { HomepageFaq } from "@/components/sections/HomepageFaq";
+import { HowWeWork } from "@/components/sections/HowWeWork";
 import { ConversionCta } from "@/components/sections/ConversionCta";
 
 export default function HomePage() {
   return (
     <>
+      {/* 1. Hero and Brand Identity (with 3D Three.js sphere animation) */}
       <HeroSection />
-      <TrustStrip />
-      <BusinessChallenges />
+
+      {/* 2. Core Services */}
       <ServicesOverview />
+
+      {/* 3. Selected Projects */}
       <ProjectShowcase />
-      <CompanyPrinciples />
-      <HowWeWork />
+
+      {/* 4. Why PLAYQ Solutions (Consolidated Trust & Differentiation) */}
+      <WhyPlayqSection />
+
+      {/* 5. Industries (Compact Overview) */}
       <IndustriesPreview />
-      <TechnicalInsights />
-      <CareersLearningSection />
-      <HomepageFaq />
+
+      {/* 6. How We Work (4 Delivery Stages) */}
+      <HowWeWork />
+
+      {/* 7. Final Contact CTA */}
       <ConversionCta />
     </>
   );

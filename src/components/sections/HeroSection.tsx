@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { HeroVisual } from "@/components/3d/HeroVisual";
-import { ArrowRight, Code2, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -48,30 +48,6 @@ export function HeroSection() {
                 <span>Explore Our Work</span>
                 <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
               </Link>
-            </div>
-
-            {/* Authentic Engineering Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-slate-800/80">
-              <div className="flex items-center gap-2.5 text-xs text-slate-300">
-                <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                  <Code2 className="w-3.5 h-3.5 text-blue-400" />
-                </div>
-                <span className="font-medium">Engineering-Led Delivery</span>
-              </div>
-
-              <div className="flex items-center gap-2.5 text-xs text-slate-300">
-                <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-                </div>
-                <span className="font-medium">Transparent Ownership</span>
-              </div>
-
-              <div className="flex items-center gap-2.5 text-xs text-slate-300">
-                <div className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-                  <Cpu className="w-3.5 h-3.5 text-indigo-400" />
-                </div>
-                <span className="font-medium">Quality-Focused CI Gates</span>
-              </div>
             </div>
           </div>
 
