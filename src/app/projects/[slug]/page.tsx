@@ -136,7 +136,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                           Stage {idx + 1}
                         </span>
                         {idx < project.architectureDiagramSteps!.length - 1 && (
-                          <span className="text-slate-500 font-mono text-xs">→</span>
+                          <span className="text-slate-500 font-mono text-xs" aria-hidden="true">→</span>
                         )}
                       </div>
                       <span className="text-xs font-semibold text-slate-200 leading-snug">

@@ -46,7 +46,7 @@ export const projectsData: ProjectItem[] = [
       "A real-time telemetry streaming and fleet health monitoring architecture designed for high-frequency sensor data processing and dynamic alerting.",
     shortSummary:
       "Real-time fleet telemetry streaming and anomaly detection engine with sub-second WebSocket dispatch.",
-    keyMetric: "Sub-second live streaming",
+    keyMetric: "Staging Target: <1s Dispatch",
     problemStatement:
       "Distributed logistics fleets produce hundreds of sensor telemetry events per second across engine temperatures, speed, and GPS coordinates. Legacy batch reporting engines struggled with multi-second ingestion lag, preventing dispatchers from identifying overheating engines or unexpected route deviations in real time.",
     objectives: [
@@ -123,7 +123,7 @@ export const projectsData: ProjectItem[] = [
       "A privacy-preserving document synthesis and semantic search engine for dense regulatory and compliance filings with strict source citations.",
     shortSummary:
       "Air-gapped semantic document intelligence engine with verifiable chunk citations and zero cloud data leaks.",
-    keyMetric: "100% verifiable citations",
+    keyMetric: "Target: Verifiable Citations",
     problemStatement:
       "Legal and compliance teams spent excessive hours manually cross-referencing multi-hundred-page policy documents across conflicting international guidelines. Public LLM APIs posed severe data leakage risks, making transmission of confidential draft filings unacceptable.",
     objectives: [
@@ -200,7 +200,7 @@ export const projectsData: ProjectItem[] = [
       "An accessible, mobile-first patient intake and appointment management interface with automated scheduling confirmation and strict WCAG compliance.",
     shortSummary:
       "Accessible, mobile-first patient intake and scheduling platform with automated calendar syncing.",
-    keyMetric: "WCAG 2.2 AA compliant",
+    keyMetric: "Target: WCAG 2.2 AA Conformance",
     problemStatement:
       "Outpatient clinics faced high no-show rates and phone-line congestion due to cumbersome paper-based intake forms and lack of digital calendar integration for patients.",
     objectives: [
@@ -220,10 +220,10 @@ export const projectsData: ProjectItem[] = [
       "Practitioner Admin Console",
     ],
     technicalHighlights: [
-      "Verified WCAG 2.2 AA contrast compliance and zero layout shifts (CLS < 0.01) across mobile viewports",
-      "Atomic database transactions preventing concurrent double-booking of identical consultation slots",
+      "Front-end layout engineered toward WCAG 2.2 AA contrast guidelines and minimal layout shifts",
+      "Transactional booking logic designed to prevent concurrent double-booking of identical consultation slots",
       "Isomorphic TypeScript Zod validation safeguarding against invalid or malicious payload fields",
-      "Optimized React Server Component hydration delivering sub-1.2s First Contentful Paint on 4G networks",
+      "Optimized React Server Component hydration designed for fast first paint on mobile viewports",
     ],
     importantFeatures: [
       "Mobile-optimized progressive intake flow with step-by-step progress tracking",
@@ -276,7 +276,7 @@ export const projectsData: ProjectItem[] = [
       "A lightweight, distributed edge proxy providing token bucket rate-limiting and JWT signature verification for microservices.",
     shortSummary:
       "High-performance distributed edge proxy with token bucket rate-limiting and JWT authentication.",
-    keyMetric: "<1ms edge proxy overhead",
+    keyMetric: "Target: <1ms Proxy Overhead",
     problemStatement:
       "Microservices deployed across multiple cloud environments needed a centralized, low-latency mechanism to enforce consistent API key rate limits and request signing without bloating each individual application codebase.",
     objectives: [

@@ -49,7 +49,7 @@ export function ProjectCard({ project, showDeepPreview = false }: ProjectCardPro
         {/* Key Architectural Highlight */}
         {project.keyMetric && (
           <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-cyan-950/30 border border-cyan-800/40 text-xs text-cyan-300">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" aria-hidden="true" />
             <span className="font-mono text-[11px]">{project.keyMetric}</span>
           </div>
         )}
@@ -92,10 +92,11 @@ export function ProjectCard({ project, showDeepPreview = false }: ProjectCardPro
 
         <Link
           href={`/projects/${project.slug}`}
+          aria-label={`View case study specification for ${project.title}`}
           className="text-xs font-semibold text-cyan-400 hover:text-white flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5 shrink-0"
         >
           <span>View Case Study</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
         </Link>
       </div>
     </div>
