@@ -1,0 +1,53 @@
+name: CI / Automated Quality & Build Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-test:
+    name: Lint, Test, and Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client & Validate Schema
+        env:
+          DATABASE_URL: "postgresql://mock_user:mock_password@localhost:5432/mock_db?schema=public"
+        run: |
+          npx prisma generate
+          npx prisma validate
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript Type Check
+        run: npx tsc --noEmit
+
+      - name: Run Automated Test Suite (Vitest)
+        env:
+          DATABASE_URL: "memory"
+        run: npm test
+
+      - name: Build Production Application (Next.js 16)
+        env:
+          DATABASE_URL: "postgresql://mock_user:mock_password@localhost:5432/mock_db?schema=public"
+          NEXT_PUBLIC_SITE_URL: "https://playqsolutions.com"
+        run: npm run build
