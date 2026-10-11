@@ -14,7 +14,14 @@ export function ProjectsFilterView({ initialProjects }: ProjectsFilterViewProps)
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
 
   const categories = ["All", "Enterprise Software", "AI & Automation", "Web & Mobile", "Internal R&D"];
-  const statuses = ["All", "Demonstration", "Prototype", "Completed", "Work in Progress"];
+  const statuses = [
+    "All",
+    "Demonstration",
+    "Prototype",
+    "In Development",
+    "Completed",
+    "Work in Progress",
+  ];
 
   const filtered = initialProjects.filter((p) => {
     const categoryMatch = selectedCategory === "All" || p.category === selectedCategory;

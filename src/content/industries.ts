@@ -60,7 +60,7 @@ export const industriesData: IndustrySolution[] = [
       "Complex promotional logic and multi-tier pricing structures",
     ],
     solutions: [
-      "Edge-rendered product catalogs with sub-second page transitions",
+      "Edge-rendered product catalogs with optimized, low-latency page transitions",
       "Event-driven inventory synchronization using webhook queues",
       "Flexible cart and discount engines supporting dynamic rule evaluation",
     ],

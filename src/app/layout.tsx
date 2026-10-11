@@ -56,7 +56,7 @@ export default function RootLayout({
     url: brandConfig.websiteUrl,
     description: brandConfig.description,
     email: brandConfig.primaryEmail,
-    telephone: brandConfig.contactPhone,
+    ...(brandConfig.contactPhone ? { telephone: brandConfig.contactPhone } : {}),
     address: {
       "@type": "PostalAddress",
       addressLocality: brandConfig.location,

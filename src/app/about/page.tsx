@@ -1,11 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
 import { brandConfig } from "@/config/brand";
-import { coreValues, teamMembers } from "@/content/team";
+import { coreValues, leadershipPrinciples } from "@/content/team";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
-  ShieldAlert,
   Target,
   Eye,
   CheckCircle,
@@ -13,6 +12,9 @@ import {
   GraduationCap,
   Users,
   ArrowRight,
+  ShieldCheck,
+  Cpu,
+  Lock,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -155,58 +157,91 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founding Team Section */}
+      {/* Engineering Leadership & Operating Principles */}
       <section className="py-20 bg-slate-950/60 border-t border-slate-850">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-violet-400 block mb-2">
-                Governance & Leadership
-              </span>
-              <h2 className="text-3xl font-extrabold text-white">
-                Engineering Leadership
-              </h2>
-              <p className="text-sm text-slate-400 mt-2">
-                Configured leadership directory.
-              </p>
-            </div>
-
-            {/* Verification Disclaimer */}
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-amber-950/40 border border-amber-600/30 text-amber-200 text-xs max-w-md">
-              <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>
-                Note: Individual public founder profiles are marked unverified in development until official regulatory disclosures are completed.
-              </span>
-            </div>
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-mono uppercase tracking-widest text-violet-400 block mb-2">
+              Leadership Standards
+            </span>
+            <h2 className="text-3xl font-extrabold text-white">
+              Engineering Leadership & Operating Principles
+            </h2>
+            <p className="text-sm text-slate-300 mt-2">
+              Our team operates under strict architectural standards that govern every line of code,
+              infrastructure deployment, and mentorship interaction.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {teamMembers.map((member, i) => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {leadershipPrinciples.map((principle, i) => (
               <div
                 key={i}
-                className="p-7 rounded-2xl glass-panel border border-slate-800/80 flex flex-col justify-between"
+                className="p-8 rounded-2xl glass-panel border border-slate-800/80 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-mono text-slate-400 uppercase">
-                      {member.department}
-                    </span>
-                    <Badge variant={member.isVerified ? "success" : "warning"}>
-                      {member.isVerified ? "Verified" : "Pending Verification"}
-                    </Badge>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-1">
-                    {member.name}
+                  <span className="text-xs font-mono text-cyan-400 block mb-1">
+                    {principle.subtitle}
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {principle.title}
                   </h3>
-                  <p className="text-sm text-cyan-400 font-mono mb-3">
-                    {member.role}
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                    {principle.description}
                   </p>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Focus: {member.focusArea}
-                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800/80">
+                  <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-2">
+                    Operational Standards
+                  </span>
+                  <ul className="space-y-2">
+                    {principle.practicePoints.map((point, pIdx) => (
+                      <li key={pIdx} className="text-xs text-slate-300 flex items-start gap-2">
+                        <CheckCircle className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Quality & Security Safeguards Strip */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 p-8 rounded-3xl bg-slate-900/50 border border-slate-800">
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-1" />
+              <div>
+                <h4 className="text-sm font-bold text-white mb-1">Accessibility (WCAG 2.2 AA)</h4>
+                <p className="text-xs text-slate-300">
+                  We design semantic HTML, high color contrast, visible keyboard focus indicators,
+                  and screen-reader friendly web interfaces.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Lock className="w-5 h-5 text-blue-400 shrink-0 mt-1" />
+              <div>
+                <h4 className="text-sm font-bold text-white mb-1">Data Privacy & Security</h4>
+                <p className="text-xs text-slate-300">
+                  Zero hardcoded secrets, CSRF and token rate-limiting on APIs, and strict input
+                  normalization guarding against injection risks.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Cpu className="w-5 h-5 text-cyan-400 shrink-0 mt-1" />
+              <div>
+                <h4 className="text-sm font-bold text-white mb-1">Automated CI/CD Validation</h4>
+                <p className="text-xs text-slate-300">
+                  Every commit undergoes static type analysis, ESLint validation, and automated
+                  integration test suites before deployment.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="mt-16 text-center">

@@ -22,7 +22,7 @@ export default function TermsPage() {
             Terms of Service
           </h1>
           <p className="text-xs font-mono text-slate-400 mt-2">
-            Last Updated: October 2026 &bull; Version 1.0 (Prelaunch Template)
+            Last Updated: October 2026 &bull; Version 1.0
           </p>
         </div>
 

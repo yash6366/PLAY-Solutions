@@ -24,36 +24,35 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-              Engineering Technology.{" "}
+              Build Better Digital Products.{" "}
               <span className="gradient-text-accent block mt-1">
-                Empowering People.
-              </span>{" "}
-              Building Tomorrow.
+                Engineer for What Comes Next.
+              </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-              We transform complex challenges into intelligent digital solutions. From custom
-              software and mobile applications to AI-driven innovation, we help businesses move
-              forward while empowering emerging technology professionals through practical
-              experience and industry collaboration.
+              PLAYQ Solutions helps businesses turn complex challenges into dependable digital
+              products through custom software engineering, web and mobile development, AI
+              integration, and cloud solutions. We combine practical engineering with thoughtful
+              design to build technology that can evolve with your business.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Button href="/services" variant="primary" size="lg" className="gap-2">
-                <span>Explore Our Solutions</span>
+              <Button href="/contact?type=business" variant="primary" size="lg" className="gap-2">
+                <span>Discuss Your Project</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
 
-              <Button href="/internships" variant="secondary" size="lg">
-                <span>Build Your Career</span>
+              <Button href="/projects" variant="secondary" size="lg">
+                <span>Explore Our Work</span>
               </Button>
 
               <Link
-                href="/experts"
+                href="/internships"
                 className="text-sm font-medium text-slate-400 hover:text-cyan-300 px-3 py-2 transition-colors flex items-center gap-1.5"
               >
-                <span>Partner With Us</span>
+                <span>Student Internships</span>
                 <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
               </Link>
             </div>

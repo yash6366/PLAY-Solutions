@@ -3,11 +3,18 @@ export interface ServiceFAQ {
   answer: string;
 }
 
+export type ServiceCategory =
+  | "Custom Software Engineering"
+  | "Web and Mobile Development"
+  | "AI and Intelligent Automation"
+  | "Cloud, DevOps and Quality Engineering"
+  | "Technology Consulting";
+
 export interface ServiceDetail {
   id: string;
   slug: string;
   title: string;
-  category: "Engineering" | "Web & Mobile" | "AI & Data" | "Cloud & QA";
+  category: ServiceCategory;
   shortDescription: string;
   overview: string;
   problemsAddressed: string[];
@@ -24,7 +31,7 @@ export const servicesData: ServiceDetail[] = [
     id: "custom-software",
     slug: "custom-software",
     title: "Custom Software Development",
-    category: "Engineering",
+    category: "Custom Software Engineering",
     shortDescription: "Tailored enterprise software designed for specialized workflows, operational efficiency, and scalable growth.",
     overview: "We architect and engineer bespoke software systems that map accurately to your organization's unique operational needs, eliminating manual overhead and disparate software silos.",
     problemsAddressed: [
@@ -69,8 +76,8 @@ export const servicesData: ServiceDetail[] = [
     id: "website-development",
     slug: "website-development",
     title: "Website Development & Digital Platforms",
-    category: "Web & Mobile",
-    shortDescription: "High-performance digital platforms, marketing websites, and Jamstack architectures with sub-second page loads.",
+    category: "Web and Mobile Development",
+    shortDescription: "High-performance digital platforms, marketing websites, and Jamstack architectures optimized for Core Web Vitals.",
     overview: "We craft modern, responsive, and accessible web experiences that engage visitors, showcase your services, and achieve perfect Core Web Vitals performance.",
     problemsAddressed: [
       "High bounce rates driven by slow initial page loads and unoptimized assets",
@@ -109,7 +116,7 @@ export const servicesData: ServiceDetail[] = [
     id: "web-applications",
     slug: "web-applications",
     title: "Web Application Development",
-    category: "Web & Mobile",
+    category: "Web and Mobile Development",
     shortDescription: "Interactive SaaS portals, administrative dashboards, and customer-facing web apps with real-time state.",
     overview: "From multi-tenant SaaS products and analytics dashboards to collaborative customer workspaces, we engineer responsive, secure web applications.",
     problemsAddressed: [
@@ -150,7 +157,7 @@ export const servicesData: ServiceDetail[] = [
     id: "android-development",
     slug: "android-development",
     title: "Native Android Application Development",
-    category: "Web & Mobile",
+    category: "Web and Mobile Development",
     shortDescription: "High-performance native Android applications built with Kotlin and Jetpack Compose.",
     overview: "We build intuitive, fluid native Android applications conforming to modern Material You design standards, optimized for performance across the diverse Android device ecosystem.",
     problemsAddressed: [
@@ -189,7 +196,7 @@ export const servicesData: ServiceDetail[] = [
     id: "ios-development",
     slug: "ios-development",
     title: "Native iOS Application Development",
-    category: "Web & Mobile",
+    category: "Web and Mobile Development",
     shortDescription: "Elegant, fluid iOS applications engineered with Swift, SwiftUI, and Apple Human Interface Guidelines.",
     overview: "We craft native iOS experiences that look and feel completely at home on Apple devices, emphasizing silky smooth 120Hz ProMotion rendering, privacy, and delightful interactions.",
     problemsAddressed: [
@@ -228,7 +235,7 @@ export const servicesData: ServiceDetail[] = [
     id: "cross-platform-mobile",
     slug: "cross-platform-mobile",
     title: "Cross-Platform Mobile Development",
-    category: "Web & Mobile",
+    category: "Web and Mobile Development",
     shortDescription: "Unified mobile applications for iOS and Android using React Native and Flutter with a single codebase.",
     overview: "Accelerate time to market and reduce engineering overhead with unified mobile apps that deliver near-native 60fps performance across both operating systems.",
     problemsAddressed: [
@@ -267,7 +274,7 @@ export const servicesData: ServiceDetail[] = [
     id: "ai-integrations",
     slug: "ai-integrations",
     title: "AI Integration & LLM Orchestration",
-    category: "AI & Data",
+    category: "AI and Intelligent Automation",
     shortDescription: "Intelligent automation, machine learning integration, and LLM orchestration built for enterprise utility.",
     overview: "We bridge cutting-edge artificial intelligence models with practical business operations, delivering reliable, verifiable AI capabilities that respect data boundaries.",
     problemsAddressed: [
@@ -312,7 +319,7 @@ export const servicesData: ServiceDetail[] = [
     id: "machine-learning-solutions",
     slug: "machine-learning-solutions",
     title: "Machine Learning Solutions & Predictive Models",
-    category: "AI & Data",
+    category: "AI and Intelligent Automation",
     shortDescription: "Custom predictive models, classification systems, anomaly detection, and time-series forecasting pipelines.",
     overview: "We design, train, and deploy statistical and deep learning models that transform operational telemetry and historical data into actionable business predictions.",
     problemsAddressed: [
@@ -351,7 +358,7 @@ export const servicesData: ServiceDetail[] = [
     id: "business-process-automation",
     slug: "business-process-automation",
     title: "Business Process Automation & Workflows",
-    category: "AI & Data",
+    category: "AI and Intelligent Automation",
     shortDescription: "Event-driven workflow engines, automated data reconciliation, and document parsing eliminating manual tasks.",
     overview: "Free your team from repetitive manual operations. We engineer robust, audit-logged automation pipelines that connect your CRM, accounting, and operational systems.",
     problemsAddressed: [
@@ -390,7 +397,7 @@ export const servicesData: ServiceDetail[] = [
     id: "database-engineering",
     slug: "database-engineering",
     title: "Database Engineering & Optimization",
-    category: "AI & Data",
+    category: "Cloud, DevOps and Quality Engineering",
     shortDescription: "Relational and document database schema design, index optimization, query tuning, and disaster recovery.",
     overview: "We design robust schemas, write efficient queries, and configure automated backups to protect data integrity and optimize throughput.",
     problemsAddressed: [
@@ -429,7 +436,7 @@ export const servicesData: ServiceDetail[] = [
     id: "api-development",
     slug: "api-development",
     title: "API Development & System Integration",
-    category: "Engineering",
+    category: "Cloud, DevOps and Quality Engineering",
     shortDescription: "Secure, versioned, and documented REST and GraphQL interfaces for seamless partner integration.",
     overview: "Clean API design connects services, powers mobile interfaces, and turns isolated databases into composable services.",
     problemsAddressed: [
@@ -468,7 +475,7 @@ export const servicesData: ServiceDetail[] = [
     id: "cloud-applications",
     slug: "cloud-applications",
     title: "Cloud Application Development & DevOps",
-    category: "Engineering",
+    category: "Cloud, DevOps and Quality Engineering",
     shortDescription: "Resilient serverless and containerized cloud systems with automated scaling and zero-downtime deployments.",
     overview: "We design cloud-native architectures that deliver high availability, low latency, and cost-effective resource utilization across modern cloud platforms.",
     problemsAddressed: [
@@ -502,12 +509,13 @@ export const servicesData: ServiceDetail[] = [
         answer: "Yes, we architect using cloud-agnostic container standards to prevent vendor lock-in and enable smooth workload migration.",
       },
     ],
+    isFeaturedHomepage: true,
   },
   {
     id: "software-testing",
     slug: "software-testing",
     title: "Software Testing & Quality Assurance",
-    category: "Cloud & QA",
+    category: "Cloud, DevOps and Quality Engineering",
     shortDescription: "Comprehensive automated test suites spanning unit, integration, end-to-end, and performance testing.",
     overview: "We build automated test pipelines that catch regressions early, enabling your team to deploy software with confidence.",
     problemsAddressed: [
@@ -546,7 +554,7 @@ export const servicesData: ServiceDetail[] = [
     id: "tech-consulting",
     slug: "tech-consulting",
     title: "Technology Consulting & Ongoing Support",
-    category: "Cloud & QA",
+    category: "Technology Consulting",
     shortDescription: "Architectural strategy, code audits, continuous QA, and long-term application maintenance.",
     overview: "We act as your trusted technical partner, providing strategic guidance on tech debt, architectural decisions, code quality standards, and dependable operational maintenance.",
     problemsAddressed: [

@@ -9,11 +9,13 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const statusVariantMap = {
-    Completed: "success" as const,
-    Demonstration: "cyan" as const,
-    Prototype: "violet" as const,
-    "Work in Progress": "warning" as const,
+  const statusVariantMap: Record<string, "success" | "cyan" | "violet" | "warning" | "secondary"> = {
+    Completed: "success",
+    Demonstration: "cyan",
+    Prototype: "violet",
+    "In Development": "warning",
+    "Internal R&D": "secondary",
+    "Work in Progress": "warning",
   };
 
   return (

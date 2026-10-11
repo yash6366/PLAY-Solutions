@@ -3,11 +3,11 @@ import { Terminal, Smartphone, BrainCircuit, ShieldCheck, UserCheck } from "luci
 
 export function TrustStrip() {
   const focusAreas = [
-    { title: "Software Engineering", icon: Terminal, desc: "Modular, high-throughput architectures" },
-    { title: "Web & Mobile", icon: Smartphone, desc: "Cross-platform mobile and responsive PWAs" },
-    { title: "Artificial Intelligence", icon: BrainCircuit, desc: "Grounded RAG and enterprise workflows" },
-    { title: "Technology Consulting", icon: ShieldCheck, desc: "Architecture reviews and security audits" },
-    { title: "Industry Collaboration", icon: UserCheck, desc: "Senior mentorship and apprentice growth" },
+    { title: "Custom Software", icon: Terminal, desc: "Modular, high-reliability backend services & APIs" },
+    { title: "Web & Mobile", icon: Smartphone, desc: "Cross-platform mobile apps & responsive web platforms" },
+    { title: "AI & Automation", icon: BrainCircuit, desc: "Private RAG pipelines & intelligent workflows" },
+    { title: "Cloud & DevOps", icon: ShieldCheck, desc: "Resilient infrastructure, testing & CI/CD automation" },
+    { title: "Tech Consulting", icon: UserCheck, desc: "Architecture reviews, tech debt audits & strategy" },
   ];
 
   return (

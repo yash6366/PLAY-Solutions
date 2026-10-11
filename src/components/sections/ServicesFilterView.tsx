@@ -13,7 +13,14 @@ export function ServicesFilterView({ services }: ServicesFilterViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const categories = ["All", "Engineering", "Web & Mobile", "AI & Data", "Cloud & QA"];
+  const categories = [
+    "All",
+    "Custom Software Engineering",
+    "Web and Mobile Development",
+    "AI and Intelligent Automation",
+    "Cloud, DevOps and Quality Engineering",
+    "Technology Consulting",
+  ];
 
   const filtered = services.filter((s) => {
     const matchesCategory =

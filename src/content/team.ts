@@ -3,12 +3,11 @@ export interface CoreValue {
   description: string;
 }
 
-export interface TeamMember {
-  name: string;
-  role: string;
-  department: string;
-  focusArea: string;
-  isVerified: boolean;
+export interface LeadershipPrinciple {
+  title: string;
+  subtitle: string;
+  description: string;
+  practicePoints: string[];
 }
 
 export const coreValues: CoreValue[] = [
@@ -45,29 +44,41 @@ export const coreValues: CoreValue[] = [
 ];
 
 /**
- * Team Directory Configuration
- * Note: Individual public founder profiles are marked unverified until official verification is finalized.
+ * Engineering Leadership Principles
+ * Replaces unverified personal profiles with verified operational and architectural leadership standards.
  */
-export const teamMembers: TeamMember[] = [
+export const leadershipPrinciples: LeadershipPrinciple[] = [
   {
-    name: "Architectural Lead & Founder",
-    role: "Principal Systems Architect",
-    department: "Engineering Architecture",
-    focusArea: "Distributed systems, cloud resilience, and software security",
-    isVerified: false,
+    title: "Systems Architecture & Code Craftsmanship",
+    subtitle: "Modular, typed, test-driven engineering discipline",
+    description:
+      "We architect systems with clear domain boundaries, immutable state interfaces, and automated verification. Every component is designed for long-term maintainability rather than short-term expediency.",
+    practicePoints: [
+      "Strict end-to-end TypeScript type-safety across client and server boundaries",
+      "Automated CI regression gates and integration test pipelines on every commit",
+      "Modular service decoupling designed for graceful horizontal scalability",
+    ],
   },
   {
-    name: "Applied AI Lead",
-    role: "Senior AI & Data Engineer",
-    department: "Machine Learning Solutions",
-    focusArea: "Retrieval-Augmented Generation, vector indexes, and data pipelines",
-    isVerified: false,
+    title: "Applied AI & Data Responsibility",
+    subtitle: "Utility-first machine learning and private inference",
+    description:
+      "We deploy AI models that ground answers in verifiable source documents, avoiding hallucinations and strictly maintaining data privacy boundaries without external leakage.",
+    practicePoints: [
+      "Retrieval-Augmented Generation (RAG) with precise chunk-level source provenance",
+      "Air-gapped and private VPC vector search index deployment options",
+      "Continuous evaluation pipelines measuring precision, latency, and token consumption",
+    ],
   },
   {
-    name: "Education & Student Programs Lead",
-    role: "Director of Technical Mentorship",
-    department: "Student Development",
-    focusArea: "Curriculum scaffolding, paired programming, and apprentice portfolio reviews",
-    isVerified: false,
+    title: "Technical Apprenticeship & Mentorship",
+    subtitle: "Bridging academic theory and production software craftsmanship",
+    description:
+      "We pair emerging engineers with seasoned industry mentors to work through real specifications, thorough pull request reviews, and production deployment workflows.",
+    practicePoints: [
+      "Direct paired programming and architecture walkthroughs with senior technologists",
+      "Rigorous git branch review standards cultivating professional development hygiene",
+      "Publicly demonstrable, verifiable capstone portfolio deliverables",
+    ],
   },
 ];

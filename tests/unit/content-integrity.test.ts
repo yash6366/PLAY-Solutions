@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { brandConfig } from "@/config/brand";
-import { servicesData } from "@/content/services";
+import { servicesData, ServiceCategory } from "@/content/services";
 import { projectsData } from "@/content/projects";
 import { internshipOpportunities } from "@/content/internships";
 import { mainNav } from "@/config/navigation";
@@ -27,12 +27,37 @@ describe("Content Integrity & Centralized Brand Configuration", () => {
     });
   });
 
-  it("should classify all projects with verified status tags", () => {
-    const validStatuses = ["Completed", "Demonstration", "Prototype", "Work in Progress"];
+  it("should organize all services into the 5 principal categories", () => {
+    const validCategories: ServiceCategory[] = [
+      "Custom Software Engineering",
+      "Web and Mobile Development",
+      "AI and Intelligent Automation",
+      "Cloud, DevOps and Quality Engineering",
+      "Technology Consulting",
+    ];
+    servicesData.forEach((service) => {
+      expect(validCategories).toContain(service.category);
+    });
+  });
+
+  it("should classify all projects with verified status tags and case study structure", () => {
+    const validStatuses = [
+      "Completed",
+      "Demonstration",
+      "Prototype",
+      "In Development",
+      "Internal R&D",
+      "Work in Progress",
+    ];
     projectsData.forEach((project) => {
       expect(validStatuses).toContain(project.status);
       expect(project.problemStatement).toBeTruthy();
       expect(project.solution).toBeTruthy();
+      expect(project.objectives.length).toBeGreaterThan(0);
+      expect(project.securityAndReliability.length).toBeGreaterThan(0);
+      expect(project.testingMethodology.length).toBeGreaterThan(0);
+      expect(project.knownLimitations.length).toBeGreaterThan(0);
+      expect(project.relatedServices.length).toBeGreaterThan(0);
     });
   });
 
