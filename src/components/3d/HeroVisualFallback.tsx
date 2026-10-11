@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -107,7 +108,6 @@ export function HeroVisualFallback() {
         <circle
           cx="200"
           cy="200"
-          rx="45"
           r="45"
           fill="url(#coreGradient)"
           fillOpacity="0.12"

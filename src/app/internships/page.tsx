@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Careers & Internships",
   description:
-    "Explore engineering internships and career opportunities at PLAYQ Solutions. Learn alongside engineers working on practical technology projects.",
+    "Explore engineering internships and career opportunities at PLAYTS - PLAY Tech Solutions. Learn alongside engineers working on practical technology projects.",
 };
 
 export default function InternshipsPage() {

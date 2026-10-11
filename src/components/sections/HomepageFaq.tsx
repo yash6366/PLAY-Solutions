@@ -26,7 +26,7 @@ const faqs: FaqItem[] = [
       "We maintain strict type-safety with TypeScript, enforce modular separation of concerns, and implement balanced test pyramids (unit, integration, and end-to-end user journeys). All pull requests pass automated linting, type checks, and regression tests before staging deployment.",
   },
   {
-    question: "How are student apprentices and industry mentors integrated into PLAYQ?",
+    question: "How are student apprentices and industry mentors integrated into PLAYTS?",
     answer:
       "Our apprenticeship program is a dedicated educational track that operates transparently and independently from mission-critical commercial deliverables. Apprentices work on simulated projects, open tooling, and synthetic case studies under synchronous mentor guidance to build verified portfolios.",
   },

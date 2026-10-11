@@ -63,7 +63,7 @@ export function decodeBase32(str: string): Buffer {
 export function generateTotpSecret(): { secret: string; otpauthUrl: string } {
   const randomBytes = crypto.randomBytes(20);
   const secret = encodeBase32(randomBytes);
-  const issuer = encodeURIComponent("PLAYQ Solutions");
+  const issuer = encodeURIComponent("PLAY Tech Solutions");
   const account = encodeURIComponent("admin-portal");
   const otpauthUrl = `otpauth://totp/${issuer}:${account}?secret=${secret}&issuer=${issuer}&algorithm=SHA1&digits=6&period=30`;
 

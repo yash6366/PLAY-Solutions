@@ -17,60 +17,60 @@ export function HeroSection() {
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div className="inline-flex items-center gap-2">
               <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-800/40">
-                Software Engineering Studio
+                Software Engineering &amp; Digital Innovation
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-              Software Engineering for{" "}
+              Build the technology that{" "}
               <span className="gradient-text-accent block mt-1">
-                Real Business Challenges.
+                moves your business forward.
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-              PLAYQ Solutions designs and develops custom software, web applications,
-              mobile experiences, and intelligent automation to help businesses solve
-              practical problems and build dependable digital products.
+              PLAYTS - PLAY Tech Solutions designs and develops custom software, web and mobile
+              applications, and intelligent automation that help businesses solve complex
+              problems and turn ideas into dependable digital products.
             </p>
 
-            {/* Single Primary CTA with Secondary Link */}
+            {/* Clear Primary and Secondary CTAs */}
             <div className="flex flex-wrap items-center gap-5 pt-2">
               <Button href="/contact?type=business" variant="primary" size="lg" className="gap-2">
-                <span>Discuss a Project</span>
+                <span>Discuss Your Project</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
 
               <Link
                 href="/projects"
-                className="text-sm font-medium text-slate-300 hover:text-white px-2 py-2 transition-colors flex items-center gap-1.5 underline-offset-4 hover:underline"
+                className="text-sm font-semibold text-slate-300 hover:text-white px-2 py-2 transition-colors flex items-center gap-1.5 underline-offset-4 hover:underline"
               >
-                <span>Explore Selected Work</span>
+                <span>Explore Our Work</span>
                 <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
               </Link>
             </div>
 
-            {/* Practical Quality Pillars */}
+            {/* Authentic Engineering Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6 border-t border-slate-800/80">
               <div className="flex items-center gap-2.5 text-xs text-slate-300">
                 <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                   <Code2 className="w-3.5 h-3.5 text-blue-400" />
                 </div>
-                <span>Strict Type Safety & Tests</span>
+                <span>Engineering-Led Delivery</span>
               </div>
 
               <div className="flex items-center gap-2.5 text-xs text-slate-300">
                 <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
                 </div>
-                <span>100% Client Code Ownership</span>
+                <span>Transparent Collaboration</span>
               </div>
 
               <div className="flex items-center gap-2.5 text-xs text-slate-300">
                 <div className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
                   <Cpu className="w-3.5 h-3.5 text-indigo-400" />
                 </div>
-                <span>Air-Gapped AI & Privacy</span>
+                <span>Quality-Focused Development</span>
               </div>
             </div>
           </div>

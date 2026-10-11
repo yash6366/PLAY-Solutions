@@ -24,7 +24,7 @@ export function HowWeWork() {
     {
       step: "04",
       title: "Security & Accessibility",
-      desc: "Rigorous verification: CSRF/rate-limit checks, secret scans, WCAG 2.2 AA accessibility audits, and cross-browser regression testing.",
+      desc: "Rigorous verification: CSRF/rate-limit checks, secret scans, WCAG accessibility reviews, and cross-browser regression testing.",
       icon: ShieldCheck,
     },
     {

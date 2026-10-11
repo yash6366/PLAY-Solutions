@@ -23,7 +23,7 @@ export function CompanyPrinciples() {
     },
     {
       title: "Universal Accessibility & Standards",
-      desc: "We engineer semantic HTML, high contrast ratios, visible keyboard focus indicators, and screen-reader compliant flows aligned with WCAG 2.2 AA benchmarks.",
+      desc: "We engineer semantic HTML, high contrast ratios, visible keyboard focus indicators, and screen-reader compliant flows aligned with WCAG benchmarks.",
       icon: Eye,
       details: ["Full keyboard navigability", "Screen-reader semantic trees", "Automated axe accessibility audits"],
     },

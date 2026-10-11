@@ -69,6 +69,7 @@ export function HeroVisual() {
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.domElement.setAttribute("aria-hidden", "true");
     container.appendChild(renderer.domElement);
 
     // Group to hold all revolving elements
@@ -165,8 +166,20 @@ export function HeroVisual() {
       targetRotationY = clampedX * 0.35;
       targetRotationX = -clampedY * 0.35;
     };
-
     window.addEventListener("mousemove", handlePointerMove);
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isVisible || !e.touches[0]) return;
+      const touch = e.touches[0];
+      const rect = container.getBoundingClientRect();
+      const x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((touch.clientY - rect.top) / rect.height) * 2 - 1);
+      const clampedX = Math.max(-1.5, Math.min(1.5, x));
+      const clampedY = Math.max(-1.5, Math.min(1.5, y));
+      targetRotationY = clampedX * 0.35;
+      targetRotationX = -clampedY * 0.35;
+    };
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     // Resize handling
     const handleResize = () => {
@@ -222,6 +235,7 @@ export function HeroVisual() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", handlePointerMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("resize", handleResize);
       observer.disconnect();
 

@@ -100,7 +100,7 @@ export async function requireAdminAuth(
   if (!session) {
     throw new AuthError(
       "UNAUTHENTICATED",
-      "Authentication required. Please log in to access the PLAYQ Solutions management portal."
+      "Authentication required. Please log in to access the PLAYTS - PLAY Tech Solutions management portal."
     );
   }
 

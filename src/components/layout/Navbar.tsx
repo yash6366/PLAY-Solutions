@@ -69,7 +69,7 @@ export function Navbar() {
                 {brandConfig.shortName}
               </span>
               <span className="text-[10px] text-slate-400 tracking-wider uppercase font-mono">
-                Software Engineering
+                Tech Solutions
               </span>
             </div>
           </Link>

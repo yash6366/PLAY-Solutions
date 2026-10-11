@@ -213,7 +213,7 @@ export default function AboutPage() {
             <div className="flex items-start gap-3">
               <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-1" />
               <div>
-                <h4 className="text-sm font-bold text-white mb-1">Accessibility (WCAG 2.2 AA)</h4>
+                <h4 className="text-sm font-bold text-white mb-1">WCAG-Guided Accessibility</h4>
                 <p className="text-xs text-slate-300">
                   We design semantic HTML, high color contrast, visible keyboard focus indicators,
                   and screen-reader friendly web interfaces.

@@ -19,8 +19,8 @@ export function TrustStrip() {
       icon: Lock,
     },
     {
-      title: "WCAG 2.2 AA Conformance",
-      desc: "Accessible markup, high contrast & keyboard navigation",
+      title: "WCAG-Guided Design",
+      desc: "Semantic markup, high contrast & keyboard navigation",
       icon: Eye,
     },
     {
