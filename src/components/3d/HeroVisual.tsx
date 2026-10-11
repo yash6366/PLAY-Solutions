@@ -78,20 +78,20 @@ export function HeroVisual() {
     // 1. Central Core Sphere (Wireframe & Solid core)
     const sphereGeometry = new THREE.IcosahedronGeometry(1.6, 2);
     const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x4f8cff,
+      color: 0x3b82f6,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.38,
     });
     const sphereMesh = new THREE.Mesh(sphereGeometry, wireframeMaterial);
     coreGroup.add(sphereMesh);
 
     const innerSphereGeo = new THREE.SphereGeometry(0.9, 16, 16);
     const innerMaterial = new THREE.MeshBasicMaterial({
-      color: 0x8b5cf6,
+      color: 0x6366f1,
       wireframe: true,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.35,
     });
     const innerMesh = new THREE.Mesh(innerSphereGeo, innerMaterial);
     coreGroup.add(innerMesh);
@@ -99,9 +99,9 @@ export function HeroVisual() {
     // 2. Orbital Rings
     const ringGeometry1 = new THREE.TorusGeometry(2.4, 0.015, 12, 64);
     const ringMaterial1 = new THREE.MeshBasicMaterial({
-      color: 0x35d6e8,
+      color: 0x06b6d4,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.55,
     });
     const ring1 = new THREE.Mesh(ringGeometry1, ringMaterial1);
     ring1.rotation.x = Math.PI / 3;
@@ -109,7 +109,7 @@ export function HeroVisual() {
 
     const ringGeometry2 = new THREE.TorusGeometry(2.9, 0.012, 12, 64);
     const ringMaterial2 = new THREE.MeshBasicMaterial({
-      color: 0x8b5cf6,
+      color: 0x3b82f6,
       transparent: true,
       opacity: 0.45,
     });
@@ -135,32 +135,35 @@ export function HeroVisual() {
     particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x35d6e8,
+      color: 0x38bdf8,
       size: 0.045,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.75,
     });
     const particleSystem = new THREE.Points(particleGeo, particleMaterial);
     scene.add(particleSystem);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x4f8cff, 2, 20);
+    const pointLight = new THREE.PointLight(0x3b82f6, 2, 20);
     pointLight.position.set(3, 4, 5);
     scene.add(pointLight);
 
-    // Pointer tracking
+    // Pointer tracking with soft bounds
     let targetRotationX = 0;
     let targetRotationY = 0;
 
     const handlePointerMove = (e: MouseEvent) => {
+      if (!isVisible) return;
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      targetRotationY = x * 0.4;
-      targetRotationX = -y * 0.4;
+      const clampedX = Math.max(-1.5, Math.min(1.5, x));
+      const clampedY = Math.max(-1.5, Math.min(1.5, y));
+      targetRotationY = clampedX * 0.35;
+      targetRotationX = -clampedY * 0.35;
     };
 
     window.addEventListener("mousemove", handlePointerMove);
@@ -170,6 +173,7 @@ export function HeroVisual() {
       if (!container) return;
       const w = container.clientWidth;
       const h = container.clientHeight;
+      if (w === 0 || h === 0) return;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -181,11 +185,11 @@ export function HeroVisual() {
       (entries) => {
         isVisible = entries[0].isIntersecting;
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     observer.observe(container);
 
-    // Animation timing using performance.now() to avoid deprecated THREE.Clock
+    // Animation timing using performance.now()
     const startTime = performance.now();
 
     const animate = () => {
@@ -199,7 +203,7 @@ export function HeroVisual() {
       coreGroup.rotation.y += (targetRotationY - coreGroup.rotation.y) * 0.05;
       coreGroup.rotation.x += (targetRotationX - coreGroup.rotation.x) * 0.05;
 
-      // Idle revolutions
+      // Continuous subtle orbital revolutions
       sphereMesh.rotation.y = elapsed * 0.15;
       sphereMesh.rotation.x = elapsed * 0.08;
       innerMesh.rotation.y = -elapsed * 0.2;
@@ -247,13 +251,13 @@ export function HeroVisual() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[400px] md:h-[520px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+      className="relative w-full h-[320px] sm:h-[420px] lg:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
       aria-label="Interactive 3D Technology Sphere"
       role="img"
     >
       {/* Background radial atmosphere */}
       <div className="absolute inset-0 radial-glow-blue pointer-events-none -z-10" />
-      <div className="absolute inset-0 radial-glow-violet pointer-events-none -z-10" />
+      <div className="absolute inset-0 radial-glow-cyan pointer-events-none -z-10" />
     </div>
   );
 }

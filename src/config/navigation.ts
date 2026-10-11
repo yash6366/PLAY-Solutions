@@ -11,26 +11,26 @@ export const mainNav: NavItem[] = [
   { title: "Services", href: "/services" },
   { title: "Industries", href: "/industries" },
   { title: "Projects", href: "/projects" },
-  { title: "Internships", href: "/internships", badge: "Active" },
-  { title: "Experts & Mentors", href: "/experts" },
+  { title: "Careers", href: "/internships" },
   { title: "Contact", href: "/contact" },
 ];
 
 export const footerNav = {
   solutions: [
-    { title: "Software Engineering", href: "/services/custom-software" },
+    { title: "Custom Software", href: "/services/custom-software" },
     { title: "Web & Mobile Development", href: "/services/web-applications" },
-    { title: "AI & Machine Learning", href: "/services/ai-integrations" },
+    { title: "AI & Intelligent Automation", href: "/services/ai-integrations" },
     { title: "Cloud Architecture & APIs", href: "/services/cloud-applications" },
     { title: "Quality Assurance & QA", href: "/services/software-testing" },
-    { title: "Tech Consulting", href: "/services/tech-consulting" },
+    { title: "Technology Consulting", href: "/services/tech-consulting" },
   ],
   ecosystem: [
-    { title: "Student Internships", href: "/internships" },
-    { title: "Industry Mentorship", href: "/experts" },
-    { title: "Client Portfolio", href: "/projects" },
-    { title: "Engineering Philosophy", href: "/about" },
+    { title: "About PLAYQ", href: "/about" },
+    { title: "Services Catalog", href: "/services" },
     { title: "Industry Verticals", href: "/industries" },
+    { title: "Selected Projects", href: "/projects" },
+    { title: "Careers", href: "/internships" },
+    { title: "Contact Engineering", href: "/contact" },
   ],
   legal: [
     { title: "Privacy Policy", href: "/privacy" },

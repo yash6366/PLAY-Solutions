@@ -119,7 +119,7 @@ export function InternshipOpportunityList({
               className="gap-2 shadow-blue-500/20"
             >
               <Send className="w-4 h-4" />
-              <span>Apply for this Position</span>
+              <span>Apply Now</span>
             </Button>
           </div>
         </div>

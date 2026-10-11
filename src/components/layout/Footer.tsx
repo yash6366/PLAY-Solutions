@@ -33,9 +33,9 @@ export function Footer() {
               href="/"
               className="flex items-center gap-2.5 group w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-1"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-violet-600 flex items-center justify-center p-[1px]">
-                <div className="w-full h-full bg-[#080B14] rounded-[7px] flex items-center justify-center">
-                  <Layers className="w-4 h-4 text-cyan-400" />
+              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center p-[1px] shadow-sm shadow-blue-500/20">
+                <div className="w-full h-full bg-[#080C14] rounded-[7px] flex items-center justify-center">
+                  <Layers className="w-4 h-4 text-blue-400" />
                 </div>
               </div>
               <span className="text-lg font-bold text-white tracking-tight">
@@ -167,7 +167,7 @@ export function Footer() {
             &copy; {currentYear} {brandConfig.companyName}. All rights reserved.
           </p>
           <p className="text-slate-400 text-center sm:text-right">
-            Engineered for high-reliability systems and practical learning.
+            Dependable software engineering, type safety, and architectural discipline.
           </p>
         </div>
       </div>

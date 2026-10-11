@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { servicesData } from "@/content/services";
 import { ServicesFilterView } from "@/components/sections/ServicesFilterView";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight, Wrench } from "lucide-react";
 
@@ -19,9 +18,9 @@ export default function ServicesPage() {
       <section className="py-16 border-b border-slate-850 bg-slate-950/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <Badge variant="cyan" className="mb-4">
-              Pillar 1: Technology Solutions
-            </Badge>
+            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-800/40 inline-block mb-4">
+              Core Engineering Disciplines
+            </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Comprehensive Engineering & Development Services
             </h1>

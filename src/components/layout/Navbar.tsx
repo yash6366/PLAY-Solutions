@@ -59,17 +59,17 @@ export function Navbar() {
             className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-1"
             aria-label={`${brandConfig.shortName} Homepage`}
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 flex items-center justify-center p-[1px] shadow-md shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow">
-              <div className="w-full h-full bg-[#080B14] rounded-[11px] flex items-center justify-center">
-                <Layers className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center p-[1px] shadow-sm shadow-blue-500/20 group-hover:bg-blue-500 transition-colors">
+              <div className="w-full h-full bg-[#080C14] rounded-[11px] flex items-center justify-center">
+                <Layers className="w-5 h-5 text-blue-400 group-hover:scale-105 transition-transform" />
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+              <span className="text-base font-bold tracking-tight text-white group-hover:text-blue-300 transition-colors">
                 {brandConfig.shortName}
               </span>
               <span className="text-[10px] text-slate-400 tracking-wider uppercase font-mono">
-                Tech Solutions
+                Software Engineering
               </span>
             </div>
           </Link>
@@ -181,7 +181,7 @@ export function Navbar() {
                 className="w-full justify-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Explore Student Internships
+                Explore Careers
               </Button>
             </div>
           </div>

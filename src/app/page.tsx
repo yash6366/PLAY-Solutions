@@ -1,11 +1,11 @@
 import React from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
-import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { TrustStrip } from "@/components/sections/TrustStrip";
+import { ServicesOverview } from "@/components/sections/ServicesOverview";
+import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
 import { HowWeWork } from "@/components/sections/HowWeWork";
-import { StudentDevelopment } from "@/components/sections/StudentDevelopment";
-import { IndustryCollaboration } from "@/components/sections/IndustryCollaboration";
+import { CompanyPrinciples } from "@/components/sections/CompanyPrinciples";
+import { CareersLearningSection } from "@/components/sections/CareersLearningSection";
 import { HomepageFaq } from "@/components/sections/HomepageFaq";
 import { ConversionCta } from "@/components/sections/ConversionCta";
 
@@ -13,12 +13,12 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ProjectShowcase />
-      <ServicesOverview />
       <TrustStrip />
+      <ServicesOverview />
+      <ProjectShowcase />
       <HowWeWork />
-      <StudentDevelopment />
-      <IndustryCollaboration />
+      <CompanyPrinciples />
+      <CareersLearningSection />
       <HomepageFaq />
       <ConversionCta />
     </>

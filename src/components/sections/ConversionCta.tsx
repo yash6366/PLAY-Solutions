@@ -1,73 +1,67 @@
 import React from "react";
 import { Button } from "@/components/ui/Button";
-import { ArrowRight, Building2, GraduationCap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Clock, FileCode2 } from "lucide-react";
 
 export function ConversionCta() {
   return (
-    <section className="py-20 border-t border-slate-850 relative z-10" aria-label="Action Pathways">
+    <section className="py-20 border-t border-slate-850 relative z-10" aria-label="Discuss a Project">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Business Panel */}
-          <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-blue-950/60 via-slate-900/80 to-slate-950/90 border border-blue-500/30 flex flex-col justify-between overflow-hidden shadow-xl shadow-blue-950/20">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10" />
+        <div className="relative p-8 sm:p-14 rounded-3xl glass-panel border border-slate-800/90 overflow-hidden text-center max-w-4xl mx-auto shadow-2xl">
+          {/* Subtle background glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] radial-glow-blue pointer-events-none -z-10" />
 
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-mono mb-4 border border-blue-500/30">
-                <Building2 className="w-3.5 h-3.5" />
-                <span>For Organizations & Startups</span>
-              </div>
+          <span className="text-[11px] font-mono uppercase tracking-widest text-cyan-400 font-semibold px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-800/40 inline-block mb-4">
+            Start a Conversation
+          </span>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
-                Have a technology challenge? Let&apos;s build the right solution.
-              </h3>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+            Have a Software Challenge?{" "}
+            <span className="gradient-text-accent block sm:inline">
+              Let&apos;s Build the Solution.
+            </span>
+          </h2>
 
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                From high-concurrency cloud systems to specialized mobile platforms and
-                enterprise AI integrations, our engineering team brings architectural discipline to
-                your roadmap.
-              </p>
-            </div>
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-8">
+            Whether you need a scalable web application, mobile native platform, high-throughput
+            APIs, or private AI automation, we bring architectural clarity and disciplined execution
+            to your roadmap.
+          </p>
 
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
             <Button
               href="/contact?type=business"
               variant="primary"
               size="lg"
-              className="w-fit gap-2 shadow-blue-500/30"
+              className="w-full sm:w-auto gap-2"
             >
-              <span>Discuss Your Project</span>
+              <span>Discuss a Project</span>
               <ArrowRight className="w-4 h-4" />
+            </Button>
+
+            <Button
+              href="/services"
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              <span>Explore All Capabilities</span>
             </Button>
           </div>
 
-          {/* Student Panel */}
-          <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-violet-950/60 via-slate-900/80 to-slate-950/90 border border-violet-500/30 flex flex-col justify-between overflow-hidden shadow-xl shadow-violet-950/20">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl -z-10" />
-
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-mono mb-4 border border-violet-500/30">
-                <GraduationCap className="w-3.5 h-3.5" />
-                <span>For Students & Aspiring Engineers</span>
-              </div>
-
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
-                Ready to turn your knowledge into practical experience?
-              </h3>
-
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                Join our structured apprenticeship programs, learn through real code reviews and
-                mentorship, and build demonstrative software that launches your engineering career.
-              </p>
+          {/* Practical Guarantees */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-slate-850 text-xs text-slate-400 text-left">
+            <div className="flex items-center gap-2.5">
+              <Clock className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span>Response within 1–2 business days</span>
             </div>
-
-            <Button
-              href="/internships"
-              variant="primary"
-              size="lg"
-              className="w-fit gap-2 bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 shadow-violet-500/30"
-            >
-              <span>Explore Internships</span>
-              <ArrowRight className="w-4 h-4" />
-            </Button>
+            <div className="flex items-center gap-2.5">
+              <FileCode2 className="w-4 h-4 text-blue-400 shrink-0" />
+              <span>100% Client Code & IP Ownership</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Non-Disclosure & Confidentiality</span>
+            </div>
           </div>
         </div>
       </div>

@@ -7,15 +7,15 @@ import { BrandConfig } from "@/types/brand";
 export const brandConfig: BrandConfig = {
   companyName: "PLAYQ Solutions",
   shortName: "PLAYQ",
-  tagline: "Build Better Digital Products. Engineer for What Comes Next.",
+  tagline: "Software Engineering for Real Business Challenges",
   description:
-    "PLAYQ Solutions helps businesses turn complex challenges into dependable digital products through custom software engineering, web and mobile development, AI integration, and cloud solutions. We combine practical engineering with thoughtful design to build technology that can evolve with your business.",
+    "PLAYQ Solutions designs and develops custom software, web applications, mobile experiences, and intelligent automation to help businesses solve practical problems and build dependable digital products.",
   primaryEmail: "contact@playqsolutions.com",
   contactPhone: undefined,
   websiteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://playqsolutions.com",
   location: "Global Remote / Distributed Engineering Studio",
-  primaryColor: "#4F8CFF", // Electric Blue
-  secondaryColor: "#8B5CF6", // Violet
+  primaryColor: "#3B82F6", // Professional Sapphire
+  secondaryColor: "#06B6D4", // Technical Cyan
   socialLinks: {
     linkedin: "https://linkedin.com/company/playq-solutions",
     github: "https://github.com/playq-solutions",

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Artificial Intelligence",
     "Machine Learning Integration",
     "Technical Mentorship",
-    "Student Internships",
+    "Careers & Internships",
     "Technology Consulting",
   ],
   authors: [{ name: brandConfig.companyName }],

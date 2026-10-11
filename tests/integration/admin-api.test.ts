@@ -25,6 +25,7 @@ import { createInquiry } from "@/server/repositories/inquiry.repository";
 import { createInternshipApplication } from "@/server/repositories/internship.repository";
 import { createMentorInquiry } from "@/server/repositories/mentor.repository";
 import { signAdminSession, AdminRole } from "@/server/auth/jwt";
+import { SignJWT } from "jose";
 import { hashPassword } from "@/server/auth/passwords";
 import { ADMIN_COOKIE_NAME } from "@/server/auth/session";
 import { clearRateLimitStore } from "@/lib/rate-limit/limiter";
@@ -154,6 +155,30 @@ describe("Admin API & Security Integration Tests", () => {
     it("should reject unauthenticated request to /api/admin/auth/me with 401", async () => {
       const req = new Request("http://localhost:3000/api/admin/auth/me");
       const res = await meHandler(req);
+      expect(res.status).toBe(401);
+    });
+
+    it("should reject request with expired session token with 401", async () => {
+      const secretKey = new TextEncoder().encode(process.env.AUTH_SECRET);
+      const expiredToken = await new SignJWT({
+        userId: "test-user-id",
+        email: "testadmin@playqsolutions.com",
+        name: "Test Administrator",
+        role: "ADMIN" as AdminRole,
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt(Math.floor(Date.now() / 1000) - 100)
+        .setIssuer("playqsolutions.com")
+        .setAudience("playq-admin-portal")
+        .setExpirationTime(Math.floor(Date.now() / 1000) - 10)
+        .sign(secretKey);
+
+      const req = new Request("http://localhost:3000/api/admin/overview", {
+        headers: {
+          Cookie: `${ADMIN_COOKIE_NAME}=${expiredToken}`,
+        },
+      });
+      const res = await overviewHandler(req);
       expect(res.status).toBe(401);
     });
   });

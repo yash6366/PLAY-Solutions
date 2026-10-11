@@ -33,7 +33,7 @@ export default function NotFound() {
               className="flex items-center gap-3 p-3 rounded-lg bg-neutral-800/40 hover:bg-neutral-800/80 border border-neutral-700/40 hover:border-cyan-500/30 transition-colors text-sm text-neutral-300 hover:text-white"
             >
               <Layers className="w-4 h-4 text-cyan-400 shrink-0" />
-              <span>Explore 14 Services</span>
+              <span>Explore Services</span>
             </Link>
             <Link
               href="/projects"
@@ -47,7 +47,7 @@ export default function NotFound() {
               className="flex items-center gap-3 p-3 rounded-lg bg-neutral-800/40 hover:bg-neutral-800/80 border border-neutral-700/40 hover:border-cyan-500/30 transition-colors text-sm text-neutral-300 hover:text-white"
             >
               <Compass className="w-4 h-4 text-cyan-400 shrink-0" />
-              <span>Student Internships</span>
+              <span>Careers</span>
             </Link>
             <Link
               href="/contact"

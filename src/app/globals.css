@@ -2,80 +2,80 @@
 
 @layer base {
   :root {
-    --bg-main: #080B14;
-    --bg-secondary: #0D1220;
-    --bg-elevated: #121A2B;
-    --bg-surface: #182238;
-    --accent-primary: #4F8CFF;
-    --accent-secondary: #8B5CF6;
-    --accent-cyan: #35D6E8;
+    --bg-main: #080C14;
+    --bg-secondary: #0D1322;
+    --bg-elevated: #121A2C;
+    --bg-surface: #172238;
+    --accent-primary: #3B82F6;
+    --accent-secondary: #6366F1;
+    --accent-cyan: #06B6D4;
     --text-main: #F8FAFC;
-    --text-muted: #A7B0C0;
-    --border-subtle: rgba(148, 163, 184, 0.12);
-    --border-highlight: rgba(79, 140, 255, 0.35);
+    --text-muted: #94A3B8;
+    --border-subtle: rgba(148, 163, 184, 0.14);
+    --border-highlight: rgba(59, 130, 246, 0.45);
   }
 
   body {
     background-color: var(--bg-main);
     color: var(--text-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
-    selection-background-color: #4F8CFF;
-    selection-color: #080B14;
+    selection-background-color: #3B82F6;
+    selection-color: #FFFFFF;
   }
 
   ::selection {
-    background: #4F8CFF;
-    color: #080B14;
+    background: #3B82F6;
+    color: #FFFFFF;
   }
 }
 
-/* Glassmorphism Surface */
+/* Engineering Studio Surfaces */
 .glass-panel {
-  background: rgba(18, 26, 43, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(14, 20, 34, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
 }
 
 .glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
   border-color: var(--border-highlight);
-  background: rgba(24, 34, 56, 0.85);
+  background: rgba(18, 26, 44, 0.88);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(79, 140, 255, 0.15);
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(59, 130, 246, 0.15);
 }
 
-/* Radiant Background Glows */
+/* Subtle Architectural Atmosphere */
 .radial-glow-blue {
-  background: radial-gradient(circle at 50% 50%, rgba(79, 140, 255, 0.15) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
 }
 
-.radial-glow-violet {
-  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 60%);
+.radial-glow-cyan {
+  background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
 }
 
-/* Gradient text utility */
+/* Refined Gradient Utilities */
 .gradient-text-primary {
-  background: linear-gradient(135deg, #F8FAFC 20%, #4F8CFF 60%, #35D6E8 100%);
+  background: linear-gradient(135deg, #FFFFFF 30%, #93C5FD 70%, #38BDF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-accent {
-  background: linear-gradient(135deg, #4F8CFF 0%, #8B5CF6 50%, #35D6E8 100%);
+  background: linear-gradient(135deg, #60A5FA 0%, #38BDF8 50%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* High-contrast focus outline for accessibility */
 :focus-visible {
-  outline: 2px solid #35D6E8;
-  outline-offset: 3px;
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
 }
 
 /* Prefers reduced motion */

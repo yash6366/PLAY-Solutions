@@ -19,21 +19,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl glass-panel glass-panel-hover border border-slate-800/80">
+    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl glass-panel glass-panel-hover border border-slate-800/80 group">
       <div className="flex flex-col gap-4">
         {/* Header Tags */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs font-mono text-slate-400">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
             {project.category}
           </span>
-          <Badge variant={statusVariantMap[project.status]}>
+          <Badge variant={statusVariantMap[project.status] || "cyan"}>
             {project.status}
           </Badge>
         </div>
 
         {/* Title */}
-        <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
-          {project.title}
+        <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+          <Link href={`/projects/${project.slug}`}>
+            {project.title}
+          </Link>
         </h3>
 
         {/* Summary */}
@@ -42,20 +44,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </p>
 
         {/* Problem & Solution Preview */}
-        <div className="bg-slate-900/60 rounded-xl p-3.5 border border-slate-800/60 text-xs flex flex-col gap-2">
+        <div className="bg-slate-950/70 rounded-xl p-4 border border-slate-800/80 text-xs flex flex-col gap-2.5">
           <div>
-            <span className="font-mono text-slate-400 block mb-0.5 font-semibold">
-              Problem Statement:
+            <span className="font-mono text-slate-400 block mb-0.5 font-semibold text-[11px]">
+              Technical Problem:
             </span>
-            <p className="text-slate-300 line-clamp-2">
+            <p className="text-slate-300 line-clamp-2 leading-relaxed">
               {project.problemStatement}
             </p>
           </div>
           <div>
-            <span className="font-mono text-cyan-400 block mb-0.5 font-semibold">
-              Engineered Solution:
+            <span className="font-mono text-cyan-400 block mb-0.5 font-semibold text-[11px]">
+              Architectural Solution:
             </span>
-            <p className="text-slate-300 line-clamp-2">
+            <p className="text-slate-300 line-clamp-2 leading-relaxed">
               {project.solution}
             </p>
           </div>
@@ -68,7 +70,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.technologies.slice(0, 3).map((tech, i) => (
             <span
               key={i}
-              className="text-[10px] font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800"
+              className="text-[10px] font-mono text-slate-400 bg-slate-900/90 px-2 py-0.5 rounded border border-slate-800"
             >
               {tech}
             </span>
@@ -77,7 +79,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <Link
           href={`/projects/${project.slug}`}
-          className="text-sm font-medium text-cyan-400 hover:text-white flex items-center gap-1.5 transition-colors"
+          className="text-xs font-semibold text-blue-400 hover:text-white flex items-center gap-1.5 transition-colors group-hover:translate-x-0.5"
         >
           <span>View Spec</span>
           <ArrowRight className="w-3.5 h-3.5" />

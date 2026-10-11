@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { brandConfig } from "@/config/brand";
 import { coreValues, leadershipPrinciples } from "@/content/team";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
   Target,
@@ -29,16 +28,17 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 border-b border-slate-850 bg-slate-950/40 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <Badge variant="cyan" className="mb-4">
-              Company Overview & Purpose
-            </Badge>
+            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-800/40 inline-block mb-4">
+              Company Overview & Philosophy
+            </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Engineering Systems. Elevating Talent. Delivering Impact.
+              Software Engineering with Architectural Discipline.
             </h1>
             <p className="text-lg text-slate-300 mt-4 leading-relaxed">
-              {brandConfig.companyName} was founded on a singular conviction: that the highest
-              quality software is built when seasoned engineering discipline intersects with
-              the fresh, creative drive of aspiring software developers.
+              {brandConfig.companyName} is an independent digital engineering studio.
+              We design and construct dependable web applications, mobile experiences,
+              backend architectures, and private AI automation systems for businesses
+              navigating complex operational challenges.
             </p>
           </div>
         </div>
@@ -51,23 +51,23 @@ export default function AboutPage() {
             <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6">
               <Target className="w-6 h-6 text-blue-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-3">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">Our Purpose</h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              To provide organizations with dependable, high-velocity digital engineering solutions
-              while systematically cultivating practical software craftsmanship in students and
-              emerging engineers through immersive, real-world apprenticeships.
+              To deliver resilient, type-safe, and maintainable software systems that solve real
+              operational challenges, while cultivating practical software craftsmanship through
+              transparent engineering standards and structured technical apprenticeships.
             </p>
           </div>
 
           <div className="p-8 sm:p-10 rounded-3xl glass-panel border border-slate-800/80">
-            <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mb-6">
-              <Eye className="w-6 h-6 text-violet-400" />
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6">
+              <Eye className="w-6 h-6 text-cyan-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-3">Our Vision</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">Our Approach</h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              A collaborative technology ecosystem where the artificial barrier between academic
-              study and production software engineering is dissolved—fostering transparent,
-              secure, and accessible digital products worldwide.
+              We believe great software is built through clear domain boundaries, disciplined type systems,
+              and thorough automated verification. We eliminate unnecessary complexity and deliver
+              systems that our clients completely own and can confidently scale.
             </p>
           </div>
         </div>

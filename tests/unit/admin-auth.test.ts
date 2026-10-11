@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeAll } from "vitest";
+import { SignJWT } from "jose";
 import { hashPassword, verifyPassword } from "@/server/auth/passwords";
 import { signAdminSession, verifyAdminSession, AdminRole } from "@/server/auth/jwt";
 import { AuthError } from "@/server/auth/session";
@@ -76,6 +77,20 @@ describe("Admin Authentication Unit Tests", () => {
 
     it("should reject an arbitrary invalid string token", async () => {
       const payload = await verifyAdminSession("invalid.token.payload");
+      expect(payload).toBeNull();
+    });
+
+    it("should reject an expired session token", async () => {
+      const secretKey = new TextEncoder().encode(process.env.AUTH_SECRET);
+      const expiredToken = await new SignJWT({ ...mockSession })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt(Math.floor(Date.now() / 1000) - 100)
+        .setIssuer("playqsolutions.com")
+        .setAudience("playq-admin-portal")
+        .setExpirationTime(Math.floor(Date.now() / 1000) - 10)
+        .sign(secretKey);
+
+      const payload = await verifyAdminSession(expiredToken);
       expect(payload).toBeNull();
     });
   });

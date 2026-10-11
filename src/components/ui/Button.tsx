@@ -29,12 +29,12 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 border border-blue-400/20",
+      "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-sm hover:shadow-blue-500/25 border border-blue-500/40 active:translate-y-px",
     secondary:
-      "bg-slate-800/80 hover:bg-slate-750 text-slate-100 border border-slate-700/80 hover:border-slate-600 shadow-sm",
+      "bg-slate-850 hover:bg-slate-800 text-slate-100 border border-slate-750 hover:border-slate-650 shadow-sm active:translate-y-px",
     outline:
-      "border border-blue-500/40 text-blue-300 hover:bg-blue-950/40 hover:border-blue-400 hover:text-white",
-    ghost: "text-slate-300 hover:text-white hover:bg-slate-850/60",
+      "border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white bg-slate-900/50 hover:bg-slate-850/60 active:translate-y-px",
+    ghost: "text-slate-300 hover:text-white hover:bg-slate-800/60",
   };
 
   const combinedClasses = cn(

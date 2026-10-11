@@ -76,4 +76,13 @@ describe("Content Integrity & Centralized Brand Configuration", () => {
       expect(item.title).toBeTruthy();
     });
   });
+
+  it("should present Careers as primary navigation route to /internships and omit separate Experts & Mentors", () => {
+    const titles = mainNav.map((item) => item.title);
+    expect(titles).toContain("Careers");
+    expect(titles).not.toContain("Experts & Mentors");
+
+    const careersItem = mainNav.find((item) => item.title === "Careers");
+    expect(careersItem?.href).toBe("/internships");
+  });
 });

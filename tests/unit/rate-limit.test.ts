@@ -73,6 +73,36 @@ describe("Rate Limiter Architecture", () => {
       expect(third.remaining).toBe(0);
       expect(third.resetSeconds).toBeGreaterThan(0);
     });
+
+    it("should enforce limit of five requests per minute and allow requests after window resets", async () => {
+      vi.useFakeTimers();
+      try {
+        const testId = "test_ip_5_per_min_" + Math.random().toString();
+        const options = { limit: 5, windowMs: 60000 };
+
+        // 5 requests within the window must be allowed
+        for (let i = 0; i < 5; i++) {
+          const res = await checkRateLimit(testId, options);
+          expect(res.allowed).toBe(true);
+        }
+
+        // 6th request within the same minute must be throttled
+        const sixth = await checkRateLimit(testId, options);
+        expect(sixth.allowed).toBe(false);
+        expect(sixth.remaining).toBe(0);
+        expect(sixth.resetSeconds).toBeGreaterThan(0);
+
+        // Advance simulated clock past the 60s sliding window
+        vi.advanceTimersByTime(61000);
+
+        // After window expiration, subsequent request must be permitted again
+        const afterReset = await checkRateLimit(testId, options);
+        expect(afterReset.allowed).toBe(true);
+        expect(afterReset.remaining).toBe(4);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
   });
 
   describe("Distributed Fail-Safe Fallback", () => {

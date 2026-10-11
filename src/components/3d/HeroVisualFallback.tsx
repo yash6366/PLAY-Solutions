@@ -5,50 +5,142 @@ import React from "react";
 export function HeroVisualFallback() {
   return (
     <div
-      className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden rounded-2xl border border-slate-800/60 bg-gradient-to-b from-slate-900/40 to-slate-950/80"
-      aria-label="Abstract digital network visualization"
+      className="relative w-full h-[320px] sm:h-[420px] lg:h-[500px] flex items-center justify-center overflow-hidden rounded-2xl select-none"
+      aria-label="Abstract digital software engineering wireframe visualization"
       role="img"
     >
-      {/* Central glow */}
-      <div className="absolute w-64 h-64 rounded-full bg-blue-500/20 blur-3xl" />
-      <div className="absolute w-48 h-48 rounded-full bg-violet-500/20 blur-2xl" />
+      {/* Background ambient lighting */}
+      <div className="absolute inset-0 radial-glow-blue pointer-events-none -z-10" />
+      <div className="absolute inset-0 radial-glow-cyan pointer-events-none -z-10" />
 
-      {/* Orbit ring 1 */}
-      <div className="absolute w-72 h-72 rounded-full border border-blue-400/30 border-dashed animate-[spin_40s_linear_infinite]" />
+      {/* Static 3D Wireframe Representation */}
+      <svg
+        viewBox="0 0 400 400"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] lg:w-[420px] lg:h-[420px] opacity-90 transition-opacity"
+        aria-hidden="true"
+      >
+        {/* Outer Orbital Ring 1 */}
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="170"
+          ry="65"
+          transform="rotate(-25 200 200)"
+          stroke="#06B6D4"
+          strokeWidth="1.25"
+          strokeDasharray="4 4"
+          strokeOpacity="0.45"
+        />
 
-      {/* Orbit ring 2 */}
-      <div className="absolute w-96 h-96 rounded-full border border-violet-400/20 animate-[spin_60s_linear_infinite_reverse]" />
+        {/* Outer Orbital Ring 2 */}
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="155"
+          ry="55"
+          transform="rotate(35 200 200)"
+          stroke="#3B82F6"
+          strokeWidth="1.25"
+          strokeOpacity="0.5"
+        />
 
-      {/* Center technological core */}
-      <div className="relative z-10 w-32 h-32 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 p-[1px] shadow-[0_0_50px_rgba(79,140,255,0.4)]">
-        <div className="w-full h-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center p-3 text-center">
-          <div className="w-8 h-8 rounded-full bg-cyan-400/30 flex items-center justify-center mb-1">
-            <div className="w-3 h-3 rounded-full bg-cyan-300 shadow-[0_0_10px_#35D6E8]" />
-          </div>
-          <span className="text-[11px] font-mono text-cyan-300 font-semibold tracking-wider">
-            NEXUS CORE
-          </span>
-          <span className="text-[9px] text-slate-400">Pillar Network</span>
-        </div>
-      </div>
+        {/* Core Wireframe Latitude Ellipses */}
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="110"
+          ry="110"
+          stroke="#3B82F6"
+          strokeWidth="1"
+          strokeOpacity="0.3"
+        />
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="110"
+          ry="55"
+          stroke="#3B82F6"
+          strokeWidth="1"
+          strokeOpacity="0.35"
+        />
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="110"
+          ry="20"
+          stroke="#38BDF8"
+          strokeWidth="1"
+          strokeOpacity="0.3"
+        />
 
-      {/* Satellite Node 1 */}
-      <div className="absolute top-1/4 left-1/4 flex items-center gap-2 p-2 rounded-lg bg-slate-900/80 border border-blue-500/30 backdrop-blur-sm shadow-lg">
-        <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-        <span className="text-xs font-mono text-slate-200">Software Solutions</span>
-      </div>
+        {/* Core Wireframe Longitude Ellipses */}
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="55"
+          ry="110"
+          stroke="#3B82F6"
+          strokeWidth="1"
+          strokeOpacity="0.35"
+        />
+        <ellipse
+          cx="200"
+          cy="200"
+          rx="20"
+          ry="110"
+          stroke="#38BDF8"
+          strokeWidth="1"
+          strokeOpacity="0.3"
+        />
 
-      {/* Satellite Node 2 */}
-      <div className="absolute bottom-1/4 right-1/4 flex items-center gap-2 p-2 rounded-lg bg-slate-900/80 border border-violet-500/30 backdrop-blur-sm shadow-lg">
-        <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
-        <span className="text-xs font-mono text-slate-200">Student Apprentices</span>
-      </div>
+        {/* Diagonal Geodesic Facet Lines */}
+        <line x1="122" y1="122" x2="278" y2="278" stroke="#3B82F6" strokeWidth="0.8" strokeOpacity="0.25" />
+        <line x1="278" y1="122" x2="122" y2="278" stroke="#3B82F6" strokeWidth="0.8" strokeOpacity="0.25" />
+        <line x1="200" y1="90" x2="278" y2="200" stroke="#06B6D4" strokeWidth="0.8" strokeOpacity="0.3" />
+        <line x1="278" y1="200" x2="200" y2="310" stroke="#06B6D4" strokeWidth="0.8" strokeOpacity="0.3" />
+        <line x1="200" y1="310" x2="122" y2="200" stroke="#06B6D4" strokeWidth="0.8" strokeOpacity="0.3" />
+        <line x1="122" y1="200" x2="200" y2="90" stroke="#06B6D4" strokeWidth="0.8" strokeOpacity="0.3" />
 
-      {/* Satellite Node 3 */}
-      <div className="absolute top-1/3 right-1/6 flex items-center gap-2 p-2 rounded-lg bg-slate-900/80 border border-cyan-500/30 backdrop-blur-sm shadow-lg">
-        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-        <span className="text-xs font-mono text-slate-200">Industry Mentors</span>
-      </div>
+        {/* Inner Core */}
+        <circle
+          cx="200"
+          cy="200"
+          rx="45"
+          r="45"
+          fill="url(#coreGradient)"
+          fillOpacity="0.12"
+          stroke="#6366F1"
+          strokeWidth="1.2"
+          strokeOpacity="0.4"
+        />
+
+        {/* Constellation Particle Nodes */}
+        <circle cx="200" cy="90" r="3" fill="#38BDF8" fillOpacity="0.85" />
+        <circle cx="200" cy="310" r="3" fill="#38BDF8" fillOpacity="0.85" />
+        <circle cx="90" cy="200" r="3" fill="#38BDF8" fillOpacity="0.85" />
+        <circle cx="310" cy="200" r="3" fill="#38BDF8" fillOpacity="0.85" />
+        <circle cx="122" cy="122" r="2.5" fill="#06B6D4" fillOpacity="0.9" />
+        <circle cx="278" cy="122" r="2.5" fill="#06B6D4" fillOpacity="0.9" />
+        <circle cx="122" cy="278" r="2.5" fill="#06B6D4" fillOpacity="0.9" />
+        <circle cx="278" cy="278" r="2.5" fill="#06B6D4" fillOpacity="0.9" />
+        <circle cx="65" cy="140" r="2" fill="#3B82F6" fillOpacity="0.7" />
+        <circle cx="335" cy="260" r="2" fill="#3B82F6" fillOpacity="0.7" />
+        <circle cx="255" cy="70" r="2" fill="#3B82F6" fillOpacity="0.7" />
+        <circle cx="145" cy="330" r="2" fill="#3B82F6" fillOpacity="0.7" />
+
+        {/* Center Node */}
+        <circle cx="200" cy="200" r="4" fill="#38BDF8" fillOpacity="0.9" />
+        <circle cx="200" cy="200" r="8" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.4" />
+
+        <defs>
+          <radialGradient id="coreGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
     </div>
   );
 }
