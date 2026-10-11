@@ -44,13 +44,19 @@ export function verifyCsrfOrigin(req: Request): boolean {
       return true;
     }
 
-    // Match against production configured site URL
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+    // Match against production configured site URL or Vercel deployment URLs
+    const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || (vercelUrl ? `https://${vercelUrl}` : undefined);
     if (siteUrl) {
       const allowedOrigin = new URL(siteUrl).origin;
       if (sourceUrl.origin === allowedOrigin) {
         return true;
       }
+    }
+
+    // Allow Vercel preview deployments if running in Vercel environment
+    if (process.env.VERCEL === "1" && sourceUrl.hostname.endsWith(".vercel.app")) {
+      return true;
     }
 
     return false;
