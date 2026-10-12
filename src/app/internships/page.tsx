@@ -1,9 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import { internshipOpportunities } from "@/content/internships";
+import { getPublicOpportunities } from "@/server/repositories/opportunity.repository";
 import { InternshipOpportunityList } from "@/components/sections/InternshipOpportunityList";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
+
+
+export const instant = false;
 
 export const metadata: Metadata = {
   title: "Careers & Internships",
@@ -11,8 +14,8 @@ export const metadata: Metadata = {
     "Explore engineering internships and career opportunities at PLAYQ Solutions. Learn alongside engineers working on practical technology projects.",
 };
 
-export default function InternshipsPage() {
-  const published = internshipOpportunities.filter((o) => o.published);
+export default async function InternshipsPage() {
+  const published = await getPublicOpportunities();
 
   return (
     <div className="pt-28 pb-24">

@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   MessageSquare,
   GraduationCap,
+  Briefcase,
   Users,
   LogOut,
   ExternalLink,
@@ -35,6 +36,11 @@ const navItems = [
     name: "Contact Inquiries",
     href: "/admin/inquiries",
     icon: MessageSquare,
+  },
+  {
+    name: "Careers & Postings",
+    href: "/admin/careers",
+    icon: Briefcase,
   },
   {
     name: "Internship Applications",

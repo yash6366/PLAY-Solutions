@@ -7,7 +7,7 @@ async function main() {
   const email = args[0] || process.env.INITIAL_ADMIN_EMAIL;
   const name = args[1] || process.env.INITIAL_ADMIN_NAME || "System Administrator";
   const password = args[2] || process.env.INITIAL_ADMIN_PASSWORD;
-  const role = (args[3] as AdminRole) || "SUPER_ADMIN";
+  const role = (args[3] as AdminRole) || "ADMIN";
 
   if (!email || !password) {
     console.error("Usage: node --experimental-strip-types scripts/create-admin.ts <email> <name> <password> [role]");
@@ -15,8 +15,8 @@ async function main() {
     process.exit(1);
   }
 
-  if (password.length < 10) {
-    console.error("Error: Password must be at least 10 characters long.");
+  if (password.length < 8) {
+    console.error("Error: Password must be at least 8 characters long.");
     process.exit(1);
   }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import {
   Search,
   Filter,
@@ -14,6 +15,7 @@ import {
   ChevronLeft,
   ChevronRight,
   GraduationCap,
+  Briefcase,
   Mail,
   Calendar,
   ExternalLink,
@@ -217,14 +219,23 @@ export default function AdminInternshipsPage() {
           </p>
         </div>
 
-        <button
-          onClick={fetchApplications}
-          disabled={loading}
-          className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-750 rounded-xl transition-all disabled:opacity-50 cursor-pointer w-fit"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
-          <span>Refresh</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/careers"
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-cyan-300 bg-cyan-950/70 hover:bg-cyan-900/70 border border-cyan-800/80 rounded-xl transition-all"
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>Manage Career Postings</span>
+          </Link>
+          <button
+            onClick={fetchApplications}
+            disabled={loading}
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-750 rounded-xl transition-all disabled:opacity-50 cursor-pointer w-fit"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
+            <span>Refresh</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter and Search Bar */}

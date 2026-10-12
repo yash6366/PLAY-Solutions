@@ -1,20 +1,21 @@
 export interface InternshipOpportunity {
   id: string;
+  jobId?: string;
   slug: string;
   title: string;
-  department: "Frontend Engineering" | "Backend Engineering" | "AI & Machine Learning" | "Mobile Engineering" | "QA & Automation";
-  type: "Technical Internship" | "Project Apprenticeship" | "Research Fellowship";
+  department: string;
+  type: string;
   description: string;
   requiredSkills: string[];
-  preferredSkills: string[];
+  preferredSkills?: string[];
   eligibility: string;
   duration: string;
-  locationMode: "Remote (Global)" | "Hybrid" | "On-Site";
-  compensationStatus: "Educational / Project Stipend Evaluated per Cohort" | "Unpaid Industry Experience (Academic Credit Eligible)";
+  locationMode: string;
+  compensationStatus: string;
   deadline: string;
   availablePositions: number;
   published: boolean;
-  termsAndExpectations: string[];
+  termsAndExpectations?: string[];
 }
 
 export const internshipOpportunities: InternshipOpportunity[] = [

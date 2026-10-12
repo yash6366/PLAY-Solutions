@@ -113,14 +113,21 @@ export function InternshipApplyModal({
         </button>
 
         <div className="mb-6">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest block mb-1">
-            Application: {opportunity.department}
-          </span>
+          <div className="flex items-center gap-2 mb-1">
+            {opportunity.jobId && (
+              <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-850">
+                Job ID: #{opportunity.jobId}
+              </span>
+            )}
+            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
+              Application: {opportunity.department}
+            </span>
+          </div>
           <h3 id="modal-title" className="text-xl sm:text-2xl font-bold text-white">
             {opportunity.title}
           </h3>
           <p className="text-xs text-slate-400 mt-1">
-            Duration: {opportunity.duration} &bull; {opportunity.compensationStatus}
+            Type: {opportunity.type} &bull; Duration: {opportunity.duration} &bull; {opportunity.compensationStatus}
           </p>
         </div>
 

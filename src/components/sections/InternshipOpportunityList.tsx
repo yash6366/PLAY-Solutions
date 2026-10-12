@@ -35,12 +35,16 @@ export function InternshipOpportunityList({
           <div>
             {/* Top row */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-950/90 text-cyan-300 border border-cyan-800">
+                  Job ID: #{opp.jobId || "00011"}
+                </span>
+                <span className="text-slate-600">&bull;</span>
                 <span className="text-xs font-mono uppercase text-cyan-400">
                   {opp.department}
                 </span>
                 <span className="text-slate-600">&bull;</span>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-slate-300 font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800">
                   {opp.type}
                 </span>
               </div>

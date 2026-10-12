@@ -57,6 +57,7 @@ export default function AdminOverviewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [mounted, setMounted] = useState(false);
 
   const handleRefresh = async () => {
     try {
@@ -86,6 +87,7 @@ export default function AdminOverviewPage() {
   };
 
   useEffect(() => {
+    setMounted(true);
     let ignore = false;
     Promise.all([
       fetch("/api/admin/overview"),
@@ -132,7 +134,9 @@ export default function AdminOverviewPage() {
         <div className="flex items-center gap-3">
           <div className="text-xs text-slate-400 hidden sm:flex items-center gap-1.5 font-mono">
             <Clock className="w-3.5 h-3.5 text-slate-400" />
-            <span>Updated {lastUpdated.toLocaleTimeString()}</span>
+            <span suppressHydrationWarning>
+              {mounted ? `Updated ${lastUpdated.toLocaleTimeString()}` : "Live Telemetry"}
+            </span>
           </div>
 
           <button
@@ -271,13 +275,20 @@ export default function AdminOverviewPage() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/80">
+          <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
             <Link
               href="/admin/internships"
               className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
             >
               <span>Review Candidates</span>
               <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href="/admin/careers"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              <span>Manage Postings</span>
+              <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
         </div>

@@ -68,7 +68,10 @@ export async function getAdminSession(req?: Request): Promise<AdminSessionPayloa
       }
     }
 
-    return payload;
+    return {
+      ...payload,
+      role: user.role,
+    };
   } catch {
     return null;
   }

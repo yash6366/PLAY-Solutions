@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { brandConfig } from "@/config/brand";
@@ -8,10 +8,14 @@ import { mainNav } from "@/config/navigation";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Menu, X, ArrowRight, Layers } from "lucide-react";
+import { SecretAdminGate } from "./SecretAdminGate";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [secretGateOpen, setSecretGateOpen] = useState(false);
+  const logoClickCountRef = useRef(0);
+  const logoTimerRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -39,26 +43,53 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      logoClickCountRef.current += 1;
+      if (logoTimerRef.current) clearTimeout(logoTimerRef.current);
+
+      if (logoClickCountRef.current >= 4) {
+        e.preventDefault();
+        logoClickCountRef.current = 0;
+        setSecretGateOpen(true);
+        return;
+      }
+
+      // Smooth scroll on first click if already on home
+      if (logoClickCountRef.current === 1) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Reset counter if more than 2.5 seconds elapse between clicks
+      logoTimerRef.current = setTimeout(() => {
+        logoClickCountRef.current = 0;
+      }, 2500);
+    }
+  };
+
   if (pathname?.startsWith("/admin")) {
     return null;
   }
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[#080B14]/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/30 py-3"
-          : "bg-transparent border-b border-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand Logo & Name */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-1"
-            aria-label={`${brandConfig.shortName} Homepage`}
-          >
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#080B14]/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg shadow-black/30 py-3"
+            : "bg-transparent border-b border-transparent py-5"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Brand Logo & Name */}
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-1"
+              aria-label={`${brandConfig.shortName} Homepage`}
+            >
             <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center p-[1px] shadow-sm shadow-blue-500/20 group-hover:bg-blue-500 transition-colors">
               <div className="w-full h-full bg-[#080C14] rounded-[11px] flex items-center justify-center">
                 <Layers className="w-5 h-5 text-blue-400 group-hover:scale-105 transition-transform" />
@@ -188,5 +219,10 @@ export function Navbar() {
         </div>
       )}
     </header>
+    <SecretAdminGate
+      isOpen={secretGateOpen}
+      onClose={() => setSecretGateOpen(false)}
+    />
+  </>
   );
 }
