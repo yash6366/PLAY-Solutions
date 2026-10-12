@@ -57,7 +57,6 @@ export default function AdminOverviewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
-  const [mounted, setMounted] = useState(false);
 
   const handleRefresh = async () => {
     try {
@@ -87,7 +86,6 @@ export default function AdminOverviewPage() {
   };
 
   useEffect(() => {
-    setMounted(true);
     let ignore = false;
     Promise.all([
       fetch("/api/admin/overview"),
@@ -135,7 +133,7 @@ export default function AdminOverviewPage() {
           <div className="text-xs text-slate-400 hidden sm:flex items-center gap-1.5 font-mono">
             <Clock className="w-3.5 h-3.5 text-slate-400" />
             <span suppressHydrationWarning>
-              {mounted ? `Updated ${lastUpdated.toLocaleTimeString()}` : "Live Telemetry"}
+              Updated {lastUpdated ? lastUpdated.toLocaleTimeString() : "Live"}
             </span>
           </div>
 

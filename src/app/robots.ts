@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { brandConfig } from "@/config/brand";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = brandConfig.websiteUrl || "https://playqsolutions.com";
+  const baseUrl = brandConfig.websiteUrl || "https://playsolutions.vercel.app";
 
   return {
     rules: [

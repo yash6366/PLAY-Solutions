@@ -4,7 +4,7 @@ import { servicesData } from "@/content/services";
 import { projectsData } from "@/content/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = brandConfig.websiteUrl || "https://playqsolutions.com";
+  const baseUrl = brandConfig.websiteUrl || "https://playsolutions.vercel.app";
 
   // Tiered static routes with defensible update cadences and prioritized weights
   const staticRouteDefs: Array<{

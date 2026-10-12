@@ -1,4 +1,4 @@
-import { isDatabaseConfigured, prisma } from "@/lib/database/prisma";
+import { getIsDatabaseConfigured, isDatabaseConfigured, prisma } from "@/lib/database/prisma";
 import { Prisma } from "@prisma/client";
 import { AdminRole } from "../auth/jwt";
 
@@ -49,7 +49,7 @@ export async function findAdminByEmail(
     return inMemoryAdmins.find((u) => u.email === normalizedEmail) || null;
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return null;
   }
 

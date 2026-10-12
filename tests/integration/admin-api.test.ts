@@ -685,5 +685,98 @@ describe("Admin API & Security Integration Tests", () => {
       });
       expect(verifyCsrfOrigin(req)).toBe(false);
     });
+
+    it("should reject unrelated Vercel deployment origins even when running on Vercel", () => {
+      const prevVercel = process.env.VERCEL;
+      const prevVercelEnv = process.env.VERCEL_ENV;
+      const prevVercelUrl = process.env.VERCEL_URL;
+      const env = process.env as Record<string, string | undefined>;
+      try {
+        env.VERCEL = "1";
+        env.VERCEL_ENV = "preview";
+        env.VERCEL_URL = "playq-solutions-pr-42.vercel.app";
+
+        // Attacker's arbitrary vercel deployment
+        const attackerReq = new Request("https://playq-solutions-pr-42.vercel.app/api/admin/inquiries", {
+          method: "POST",
+          headers: {
+            Host: "playq-solutions-pr-42.vercel.app",
+            Origin: "https://evil-unrelated-project.vercel.app",
+          },
+        });
+        expect(verifyCsrfOrigin(attackerReq)).toBe(false);
+
+        // Matching verified preview origin
+        const legitimateReq = new Request("https://playq-solutions-pr-42.vercel.app/api/admin/inquiries", {
+          method: "POST",
+          headers: {
+            Host: "playq-solutions-pr-42.vercel.app",
+            Origin: "https://playq-solutions-pr-42.vercel.app",
+          },
+        });
+        expect(verifyCsrfOrigin(legitimateReq)).toBe(true);
+      } finally {
+        env.VERCEL = prevVercel;
+        env.VERCEL_ENV = prevVercelEnv;
+        env.VERCEL_URL = prevVercelUrl;
+      }
+    });
+
+    it("should reject state-changing requests with session cookie if both Origin and Referer are missing", () => {
+      const req = new Request("https://playqsolutions.com/api/admin/inquiries", {
+        method: "POST",
+        headers: {
+          Host: "playqsolutions.com",
+          Cookie: "playq_admin_session=some_valid_jwt_token",
+        },
+      });
+      expect(verifyCsrfOrigin(req)).toBe(false);
+    });
+
+    it("should reject hostile x-forwarded-host injection trying to bypass origin validation", () => {
+      const req = new Request("https://playqsolutions.com/api/admin/inquiries", {
+        method: "POST",
+        headers: {
+          Host: "playqsolutions.com",
+          "x-forwarded-host": "attacker-controlled.com",
+          Origin: "https://attacker-controlled.com",
+        },
+      });
+      expect(verifyCsrfOrigin(req)).toBe(false);
+    });
+
+    it("should reject plain HTTP origins in production mode", () => {
+      const prevEnv = process.env.NODE_ENV;
+      const prevSite = process.env.SITE_URL;
+      const env = process.env as Record<string, string | undefined>;
+      try {
+        env.NODE_ENV = "production";
+        env.SITE_URL = "https://playqsolutions.com";
+
+        const req = new Request("https://playqsolutions.com/api/admin/inquiries", {
+          method: "POST",
+          headers: {
+            Host: "playqsolutions.com",
+            Origin: "http://playqsolutions.com",
+          },
+        });
+        expect(verifyCsrfOrigin(req)).toBe(false);
+      } finally {
+        env.NODE_ENV = prevEnv;
+        env.SITE_URL = prevSite;
+      }
+    });
+
+    it("should reject malformed origin headers gracefully without crashing", () => {
+      const req = new Request("https://playqsolutions.com/api/admin/inquiries", {
+        method: "POST",
+        headers: {
+          Host: "playqsolutions.com",
+          Origin: "not-a-valid-url:$$$",
+        },
+      });
+      expect(verifyCsrfOrigin(req)).toBe(false);
+    });
   });
 });
+

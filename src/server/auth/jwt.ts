@@ -25,7 +25,7 @@ const SESSION_EXPIRATION = "8h";
 const MFA_CHALLENGE_EXPIRATION = "5m";
 
 function getSecretKey(): Uint8Array {
-  const secret = process.env.AUTH_SECRET || process.env.SESSION_SECRET;
+  const secret = process.env.AUTH_SECRET || process.env.SESSION_SECRET || process.env.ADMIN_JWT_SECRET;
 
   if (process.env.NODE_ENV === "production" && (!secret || secret.length < 32)) {
     throw new Error(

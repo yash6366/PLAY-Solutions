@@ -12,7 +12,11 @@ export const brandConfig: BrandConfig = {
     "PLAYQ Solutions designs and develops custom software, web applications, mobile experiences, and intelligent automation to help businesses solve practical problems and build dependable digital products.",
   primaryEmail: "contact@playqsolutions.com",
   contactPhone: undefined,
-  websiteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://playqsolutions.com",
+  websiteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://playsolutions.vercel.app"),
   location: "Global Remote / Distributed Engineering Studio",
   primaryColor: "#3B82F6", // Professional Sapphire
   secondaryColor: "#06B6D4", // Technical Cyan

@@ -84,9 +84,9 @@ export default function AdminCareersPage() {
     setTimeout(() => setToastMessage(null), 4000);
   };
 
-  const fetchOpportunities = useCallback(async () => {
+  const fetchOpportunities = useCallback(async (showLoading = false) => {
     try {
-      setLoading(true);
+      if (showLoading) setLoading(true);
       setError(null);
       const res = await fetch("/api/admin/opportunities");
       if (!res.ok) {
@@ -102,8 +102,29 @@ export default function AdminCareersPage() {
   }, []);
 
   useEffect(() => {
-    fetchOpportunities();
-  }, [fetchOpportunities]);
+    let ignore = false;
+    fetch("/api/admin/opportunities")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load career opportunities.");
+        return res.json();
+      })
+      .then((data) => {
+        if (!ignore) {
+          setOpportunities(data.items || []);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (!ignore) {
+          setError(err instanceof Error ? err.message : "Error loading opportunities");
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const openCreateModal = () => {
     setEditingOpp(null);
@@ -308,7 +329,7 @@ export default function AdminCareersPage() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={fetchOpportunities}
+            onClick={() => fetchOpportunities(true)}
             disabled={loading}
             className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-700/60 text-xs font-medium transition-colors"
           >

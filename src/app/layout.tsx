@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { PrelaunchBanner } from "@/components/layout/PrelaunchBanner";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(brandConfig.websiteUrl || "https://playqsolutions.com"),
+  metadataBase: new URL(brandConfig.websiteUrl || "https://playsolutions.vercel.app"),
   title: {
     default: `${brandConfig.companyName} | ${brandConfig.tagline}`,
     template: `%s | ${brandConfig.shortName}`,

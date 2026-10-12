@@ -1,4 +1,4 @@
-import { isDatabaseConfigured, prisma } from "@/lib/database/prisma";
+import { getIsDatabaseConfigured, isDatabaseConfigured, prisma } from "@/lib/database/prisma";
 import { Prisma } from "@prisma/client";
 import { InternshipApplicationData } from "@/lib/validation/schemas";
 import { RepositoryResult } from "./inquiry.repository";
@@ -57,7 +57,7 @@ export async function createInternshipApplication(
     return { success: true, id: record.id, configured: true };
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return {
       success: false,
       configured: false,

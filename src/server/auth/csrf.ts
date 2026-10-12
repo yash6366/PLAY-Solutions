@@ -17,9 +17,23 @@ export function verifyCsrfOrigin(req: Request): boolean {
 
   const origin = req.headers.get("origin");
   const referer = req.headers.get("referer");
-  const rawHost = req.headers.get("x-forwarded-host") || req.headers.get("host");
-  const host = rawHost?.split(",")[0].trim();
+  // Determine authoritative host. Always prefer direct 'host' header to prevent forwarded-host injection
+  const directHost = req.headers.get("host")?.split(",")[0].trim();
+  const forwardedHost = req.headers.get("x-forwarded-host")?.split(",")[0].trim();
+  const host = directHost || forwardedHost;
+
   const proto = req.headers.get("x-forwarded-proto")?.split(",")[0].trim().toLowerCase();
+  const hasSessionCookie = Boolean(
+    req.headers.get("cookie")?.includes("playq_admin_session")
+  );
+
+  // If a browser session cookie is attached to a state-changing mutation, Origin or Referer MUST be present
+  if (hasSessionCookie && !origin && !referer) {
+    if (process.env.NODE_ENV !== "production" && (!host || host.startsWith("localhost") || host.startsWith("127.0.0.1"))) {
+      return true;
+    }
+    return false;
+  }
 
   // If neither Origin nor Referer is present (e.g., non-browser CLI client, unit/integration test)
   if (!origin && !referer) {
@@ -29,13 +43,27 @@ export function verifyCsrfOrigin(req: Request): boolean {
   try {
     const sourceUrl = origin ? new URL(origin) : new URL(referer!);
 
+    // In production, reject insecure plain HTTP origins
+    if (process.env.NODE_ENV === "production" && sourceUrl.protocol !== "https:") {
+      return false;
+    }
+
     // Reject HTTP/HTTPS protocol mismatch (e.g., HTTP origin on HTTPS request)
     if (proto && sourceUrl.protocol !== `${proto}:`) {
+      return false;
+    }
+
+    // If an x-forwarded-host header was injected and differs from direct host, reject if sourceUrl does not match direct host
+    if (directHost && forwardedHost && directHost !== forwardedHost && sourceUrl.host !== directHost) {
       return false;
     }
     
     // Match against request Host header
     if (host && sourceUrl.host === host) {
+      // In production, localhost is never a valid host
+      if (process.env.NODE_ENV === "production" && (sourceUrl.hostname === "localhost" || sourceUrl.hostname === "127.0.0.1")) {
+        return false;
+      }
       return true;
     }
 
@@ -49,14 +77,22 @@ export function verifyCsrfOrigin(req: Request): boolean {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || (vercelUrl ? `https://${vercelUrl}` : undefined);
     if (siteUrl) {
       const allowedOrigin = new URL(siteUrl).origin;
-      if (sourceUrl.origin === allowedOrigin) {
+      const isAllowedLocalhost = new URL(siteUrl).hostname === "localhost" || new URL(siteUrl).hostname === "127.0.0.1";
+      if (!(process.env.NODE_ENV === "production" && isAllowedLocalhost) && sourceUrl.origin === allowedOrigin) {
         return true;
       }
     }
 
-    // Allow Vercel preview deployments if running in Vercel environment
-    if (process.env.VERCEL === "1" && sourceUrl.hostname.endsWith(".vercel.app")) {
-      return true;
+    // Validate Vercel preview deployments strictly against verified deployment domains (preview only)
+    if (process.env.VERCEL === "1" && process.env.VERCEL_ENV === "preview") {
+      const currentDeploymentHost = process.env.VERCEL_URL;
+      const branchDeploymentHost = process.env.VERCEL_BRANCH_URL;
+      if (
+        (currentDeploymentHost && sourceUrl.host === currentDeploymentHost) ||
+        (branchDeploymentHost && sourceUrl.host === branchDeploymentHost)
+      ) {
+        return true;
+      }
     }
 
     return false;

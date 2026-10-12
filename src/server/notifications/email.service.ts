@@ -20,9 +20,12 @@ function getEmailConfig() {
   const apiKey =
     process.env.RESEND_API_KEY || process.env.EMAIL_PROVIDER_API_KEY || "";
   const toEmail =
-    process.env.CONTACT_NOTIFICATION_EMAIL || brandConfig.primaryEmail;
+    process.env.CONTACT_NOTIFICATION_EMAIL ||
+    process.env.ADMIN_NOTIFICATION_EMAIL ||
+    brandConfig.primaryEmail;
   const fromEmail =
     process.env.NOTIFICATION_FROM_EMAIL ||
+    process.env.CONTACT_FROM_EMAIL ||
     (process.env.NODE_ENV === "production"
       ? `notifications@playqsolutions.com`
       : `onboarding@resend.dev`);

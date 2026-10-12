@@ -41,7 +41,11 @@ export function getServerEnvironmentConfig(): ServerEnvironmentConfig {
       dbUrl !== "test"
   );
 
-  const authSecret = process.env.AUTH_SECRET?.trim() || process.env.SESSION_SECRET?.trim() || null;
+  const authSecret =
+    process.env.AUTH_SECRET?.trim() ||
+    process.env.SESSION_SECRET?.trim() ||
+    process.env.ADMIN_JWT_SECRET?.trim() ||
+    null;
   const isAuthConfigured = Boolean(
     authSecret && authSecret.length >= 32 && !authSecret.includes("placeholder")
   );
@@ -82,11 +86,13 @@ export function getServerEnvironmentConfig(): ServerEnvironmentConfig {
       apiKey: emailApiKey,
       fromEmail:
         process.env.NOTIFICATION_FROM_EMAIL?.trim() ||
+        process.env.CONTACT_FROM_EMAIL?.trim() ||
         (process.env.NODE_ENV === "production"
           ? "notifications@playqsolutions.com"
           : "onboarding@resend.dev"),
       notificationRecipient:
         process.env.CONTACT_NOTIFICATION_EMAIL?.trim() ||
+        process.env.ADMIN_NOTIFICATION_EMAIL?.trim() ||
         brandConfig.primaryEmail,
       isConfigured: isEmailConfigured,
     },

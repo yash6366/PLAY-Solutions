@@ -1,4 +1,4 @@
-import { isDatabaseConfigured, prisma } from "@/lib/database/prisma";
+import { getIsDatabaseConfigured, isDatabaseConfigured, prisma } from "@/lib/database/prisma";
 import { internshipOpportunities as fallbackOpportunities } from "@/content/internships";
 import { OpportunityType } from "@prisma/client";
 
@@ -111,7 +111,7 @@ export async function getPublicOpportunities(): Promise<OpportunityItem[]> {
     })) as unknown as OpportunityItem[];
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return fallbackOpportunities.map((fb, idx) => ({
       ...fb,
       jobId: fb.jobId || formatJobId(BASE_JOB_ID_NUMBER + idx),

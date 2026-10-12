@@ -5,9 +5,19 @@ declare global {
 }
 
 /**
- * Determines whether DATABASE_URL is configured with a plausible connection string
+ * Determines dynamically whether DATABASE_URL is configured with a plausible connection string
  * (not a placeholder or test token).
  */
+export function getIsDatabaseConfigured(): boolean {
+  return Boolean(
+    process.env.DATABASE_URL &&
+      process.env.DATABASE_URL.trim() !== "" &&
+      !process.env.DATABASE_URL.includes("placeholder") &&
+      process.env.DATABASE_URL !== "memory" &&
+      process.env.DATABASE_URL !== "test"
+  );
+}
+
 export const isDatabaseConfigured = Boolean(
   process.env.DATABASE_URL &&
     process.env.DATABASE_URL.trim() !== "" &&
@@ -17,7 +27,7 @@ export const isDatabaseConfigured = Boolean(
 );
 
 function createPrismaClient(): PrismaClient | null {
-  if (!isDatabaseConfigured) {
+  if (!getIsDatabaseConfigured()) {
     return null;
   }
   return new PrismaClient({
@@ -39,7 +49,7 @@ export async function testDatabaseConnection(): Promise<{
   connected: boolean;
   message: string;
 }> {
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return {
       configured: false,
       connected: false,

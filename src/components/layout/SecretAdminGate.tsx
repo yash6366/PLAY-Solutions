@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, CheckCircle2, AlertCircle, X, Shield } from "lucide-react";
+import { CheckCircle2, AlertCircle, X, Shield } from "lucide-react";
 
 interface SecretAdminGateProps {
   isOpen: boolean;
@@ -16,11 +16,15 @@ export function SecretAdminGate({ isOpen, onClose }: SecretAdminGateProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const handleClose = React.useCallback(() => {
+    setPin("");
+    setIsError(false);
+    setIsSuccess(false);
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     if (isOpen) {
-      setPin("");
-      setIsError(false);
-      setIsSuccess(false);
       // Auto focus input
       const timer = setTimeout(() => {
         inputRef.current?.focus();
@@ -33,12 +37,12 @@ export function SecretAdminGate({ isOpen, onClose }: SecretAdminGateProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
-        onClose();
+        handleClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   const verifyPin = (currentPin: string) => {
     if (currentPin === "0000") {
@@ -89,7 +93,7 @@ export function SecretAdminGate({ isOpen, onClose }: SecretAdminGateProps) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="secret-gate-title"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className={`relative w-full max-w-sm rounded-3xl p-6 sm:p-8 bg-[#0b0f19] border ${
@@ -103,7 +107,7 @@ export function SecretAdminGate({ isOpen, onClose }: SecretAdminGateProps) {
       >
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400"
           aria-label="Close Security Gate"
         >
@@ -221,7 +225,7 @@ export function SecretAdminGate({ isOpen, onClose }: SecretAdminGateProps) {
           </button>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="h-11 rounded-xl bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white font-mono text-xs transition-colors border border-slate-800/80 active:scale-95"
           >
             ESC

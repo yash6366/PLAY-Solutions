@@ -1,4 +1,4 @@
-import { isDatabaseConfigured, prisma } from "@/lib/database/prisma";
+import { getIsDatabaseConfigured, isDatabaseConfigured, prisma } from "@/lib/database/prisma";
 import { Prisma } from "@prisma/client";
 import { MentorInquiryData } from "@/lib/validation/schemas";
 
@@ -56,7 +56,7 @@ export async function createMentorInquiry(data: MentorInquiryData): Promise<{
     return { success: true, id: record.id, configured: true };
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return {
       success: false,
       configured: false,

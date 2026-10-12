@@ -55,7 +55,7 @@ export async function POST(req: Request) {
           success: false,
           error: result.error,
           setupGuide:
-            "To activate persistent form submissions, set DATABASE_URL in your server environment variables and apply migrations via `npx prisma db push`.",
+            "To activate persistent form submissions, set DATABASE_URL in your server environment variables and apply migrations via `npx prisma migrate deploy`.",
         },
         { status: 503 }
       );
