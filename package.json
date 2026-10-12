@@ -11,7 +11,10 @@
     "postinstall": "prisma generate",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "node --experimental-strip-types prisma/seed.ts",
+    "db:bootstrap": "prisma migrate deploy && node --experimental-strip-types prisma/seed.ts",
     "db:validate": "prisma validate",
+    "db:verify": "node --experimental-strip-types scripts/verify-db.ts",
+    "env:validate": "node --experimental-strip-types scripts/validate-env.ts",
     "admin:create": "node --experimental-strip-types scripts/create-admin.ts"
   },
   "dependencies": {

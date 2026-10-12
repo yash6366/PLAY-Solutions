@@ -122,7 +122,8 @@ export function validateEnvironment(targetMode: "development" | "staging" | "pro
   );
 
   // 2. Security & Auth
-  const authSecretVal = process.env.AUTH_SECRET || process.env.SESSION_SECRET;
+  const authSecretVal =
+    process.env.AUTH_SECRET || process.env.SESSION_SECRET || process.env.ADMIN_JWT_SECRET;
   checks.push(
     checkVariable("AUTH_SECRET", authSecretVal, {
       category: "SECURITY",
@@ -138,7 +139,13 @@ export function validateEnvironment(targetMode: "development" | "staging" | "pro
   );
 
   // 3. Application URL
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined) ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
   checks.push(
     checkVariable("NEXT_PUBLIC_SITE_URL", siteUrl, {
       category: "APP",

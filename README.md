@@ -391,12 +391,15 @@ npm run db:migrate:deploy
 npx prisma migrate dev --name describe_your_change
 ```
 
-### Seeding Catalog Data
-To populate the 3 initial internship opportunities and project case studies:
+### Seeding Catalog Data & Administrator Account
+To populate the initial administrator account (`admin@playts.com`), internship opportunities, and project case studies:
 
 ```bash
-# Idempotently upsert initial opportunities without modifying user submissions
+# Idempotently upsert administrator account, internship opportunities, and case studies
 npm run db:seed
+
+# Optional: To force reset administrator password to seed default:
+RESET_ADMIN_ON_SEED=true npm run db:seed
 ```
 
 ### Prisma Studio
@@ -523,20 +526,27 @@ curl http://localhost:3000/api/health?probe=readiness
 
 ## 13. Production Deployment Guidelines
 
+For comprehensive production deployment, environment variable configuration, Neon pooling, administrator bootstrapping, and troubleshooting procedures, see the [Production Readiness Guide](docs/PRODUCTION_READINESS.md).
+
 ### Recommended Deployment on Vercel
 1. Link your GitHub repository to Vercel.
 2. In Project Settings > Environment Variables, supply:
-   - `DATABASE_URL` (e.g. from Supabase or Neon with connection pooling)
-   - `DIRECT_URL` (direct port 5432 endpoint for Prisma migrations)
-   - `AUTH_SECRET` (generate with `openssl rand -hex 32`)
+   - `DATABASE_URL` (Pooled Neon PostgreSQL via PgBouncer with `sslmode=require`)
+   - `DIRECT_URL` (Direct unpooled Neon PostgreSQL endpoint for migrations)
+   - `AUTH_SECRET` (generate with `openssl rand -hex 32`, minimum 32 chars)
    - `NEXT_PUBLIC_SITE_URL` (e.g. `https://playqsolutions.com`)
-   - `UPSTASH_REDIS_REST_URL` & `UPSTASH_REDIS_REST_TOKEN`
+   - `ADMIN_COOKIE_SECURE` (`true`)
+   - `UPSTASH_REDIS_REST_URL` & `UPSTASH_REDIS_REST_TOKEN` (optional distributed rate limiting)
    - `RESEND_API_KEY`, `NOTIFICATION_FROM_EMAIL`, `CONTACT_NOTIFICATION_EMAIL`
 3. Set Build Command: `npm run build`
-4. Post-deployment: Run `npm run db:migrate:deploy` and `npm run db:seed` via GitHub Actions or your deployment pipeline.
-5. Provision your first administrator via CLI:
+4. Post-deployment: Run schema migrations and bootstrap:
    ```bash
-   node --experimental-strip-types scripts/create-admin.ts owner@playqsolutions.com "Super Admin" "StrongPassword!" SUPER_ADMIN
+   # Apply migrations and safely seed initial data without overwriting existing credentials
+   npm run db:bootstrap
+   ```
+5. Or provision an administrator account explicitly via CLI:
+   ```bash
+   npm run admin:create owner@playqsolutions.com "Super Admin" "Strong16+Password!" SUPER_ADMIN
    ```
 
 ### Standalone Node.js / Docker

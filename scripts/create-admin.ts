@@ -15,8 +15,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (password.length < 8) {
-    console.error("Error: Password must be at least 8 characters long.");
+  const minLength = process.env.NODE_ENV === "production" ? 12 : 8;
+  if (password.length < minLength) {
+    console.error(`Error: Password must be at least ${minLength} characters long in ${process.env.NODE_ENV || "development"}.`);
     process.exit(1);
   }
 

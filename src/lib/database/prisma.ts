@@ -18,28 +18,21 @@ export function getIsDatabaseConfigured(): boolean {
   );
 }
 
-export const isDatabaseConfigured = Boolean(
-  process.env.DATABASE_URL &&
-    process.env.DATABASE_URL.trim() !== "" &&
-    !process.env.DATABASE_URL.includes("placeholder") &&
-    process.env.DATABASE_URL !== "memory" &&
-    process.env.DATABASE_URL !== "test"
-);
-
-function createPrismaClient(): PrismaClient | null {
+export function getPrismaClient(): PrismaClient | null {
   if (!getIsDatabaseConfigured()) {
     return null;
   }
-  return new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
-  });
+  if (!globalThis.prismaGlobal) {
+    globalThis.prismaGlobal = new PrismaClient({
+      log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
+    });
+  }
+  return globalThis.prismaGlobal;
 }
 
-export const prisma = globalThis.prismaGlobal ?? (createPrismaClient() as PrismaClient);
+export const prisma = globalThis.prismaGlobal ?? getPrismaClient();
 
-if (process.env.NODE_ENV !== "production" && prisma) {
-  globalThis.prismaGlobal = prisma;
-}
+export const isDatabaseConfigured = getIsDatabaseConfigured();
 
 /**
  * Safely test whether the configured database is reachable without exposing connection details.
@@ -49,7 +42,7 @@ export async function testDatabaseConnection(): Promise<{
   connected: boolean;
   message: string;
 }> {
-  if (!getIsDatabaseConfigured() || !prisma) {
+  if (!getIsDatabaseConfigured()) {
     return {
       configured: false,
       connected: false,
@@ -58,9 +51,19 @@ export async function testDatabaseConnection(): Promise<{
     };
   }
 
+  const client = getPrismaClient();
+  if (!client) {
+    return {
+      configured: false,
+      connected: false,
+      message:
+        "Database client could not be initialized. Verify DATABASE_URL format.",
+    };
+  }
+
   try {
     // Run lightweight query to check connectivity
-    await prisma.$queryRaw`SELECT 1`;
+    await client.$queryRaw`SELECT 1`;
     return {
       configured: true,
       connected: true,

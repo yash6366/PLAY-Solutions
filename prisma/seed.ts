@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { hashPassword } from "../src/server/auth/passwords";
 
 const prisma = new PrismaClient();
 
@@ -146,8 +147,129 @@ const initialProjects = [
 ];
 
 async function main() {
-  console.log("Seeding database initial records...");
+  console.log("Starting database initialization and seed sequence...");
 
+  const dbUrl = process.env.DATABASE_URL?.trim();
+  if (!dbUrl || dbUrl === "" || dbUrl === "memory" || dbUrl.includes("placeholder")) {
+    console.error("❌ Fatal Error: DATABASE_URL is not configured with a valid PostgreSQL connection.");
+    console.error("   Seeding requires a direct or pooled database connection string.");
+    process.exit(1);
+  }
+
+  // Pre-flight: verify schema migrations exist before attempting to insert records
+  try {
+    await prisma.$queryRaw`SELECT 1 FROM "AdminUser" LIMIT 1`;
+  } catch (err: unknown) {
+    const errorMsg = (err as Error)?.message || "";
+    console.error("❌ Fatal Error: Database schema tables are missing.");
+    console.error("   Table public.\"AdminUser\" was not found.");
+    console.error("   Run `npm run db:migrate:deploy` before running the seed script.");
+    if (process.env.NODE_ENV !== "production") {
+      console.error(`   Diagnostic: ${errorMsg}`);
+    }
+    process.exit(1);
+  }
+
+  const isProduction = process.env.NODE_ENV === "production";
+
+  // 1. Seed Administrator User (Safe, repeatable, and non-destructive)
+  const envAdminEmail = process.env.INITIAL_ADMIN_EMAIL?.toLowerCase().trim();
+  const envAdminPassword = process.env.INITIAL_ADMIN_PASSWORD;
+  const adminName = process.env.INITIAL_ADMIN_NAME || "PLAYQ Administrator";
+  const adminRole = (process.env.INITIAL_ADMIN_ROLE as "SUPER_ADMIN" | "ADMIN" | "REVIEWER") || "ADMIN";
+
+  const totalAdmins = await prisma.adminUser.count();
+
+  if (isProduction) {
+    if (!envAdminEmail || !envAdminPassword) {
+      if (totalAdmins > 0) {
+        console.log(`✓ Production Notice: Database already contains ${totalAdmins} administrator account(s). Existing credentials preserved.`);
+      } else {
+        console.error("❌ Fatal Error: Production database has no administrator accounts.");
+        console.error("   To bootstrap the initial administrator in production, supply INITIAL_ADMIN_EMAIL and INITIAL_ADMIN_PASSWORD (minimum 12 characters) in the environment, or run `npm run admin:create`.");
+        process.exit(1);
+      }
+    } else {
+      if (envAdminPassword.length < 12) {
+        console.error("❌ Fatal Error: INITIAL_ADMIN_PASSWORD in production must be at least 12 characters.");
+        process.exit(1);
+      }
+
+      const existingAdmin = await prisma.adminUser.findUnique({
+        where: { email: envAdminEmail },
+      });
+
+      if (!existingAdmin) {
+        const passwordHash = await hashPassword(envAdminPassword);
+        await prisma.adminUser.create({
+          data: {
+            email: envAdminEmail,
+            name: adminName,
+            passwordHash,
+            role: adminRole,
+            isActive: true,
+            mfaEnabled: false,
+          },
+        });
+        console.log(`✓ Provisioned production administrator account: ${envAdminEmail} (Role: ${adminRole})`);
+      } else {
+        if (process.env.RESET_ADMIN_ON_SEED === "true") {
+          const passwordHash = await hashPassword(envAdminPassword);
+          await prisma.adminUser.update({
+            where: { email: envAdminEmail },
+            data: {
+              passwordHash,
+              isActive: true,
+              role: adminRole,
+            },
+          });
+          console.log(`✓ Updated administrator credentials for: ${envAdminEmail} (Role: ${adminRole})`);
+        } else {
+          console.log(`✓ Existing administrator preserved: ${envAdminEmail} (Role: ${existingAdmin.role})`);
+        }
+      }
+    }
+  } else {
+    // Non-production (development / test) default fallback
+    const devEmail = envAdminEmail || "admin@playts.com";
+    const devPassword = envAdminPassword || "Admin@123";
+
+    const existingAdmin = await prisma.adminUser.findUnique({
+      where: { email: devEmail },
+    });
+
+    if (!existingAdmin) {
+      const passwordHash = await hashPassword(devPassword);
+      await prisma.adminUser.create({
+        data: {
+          email: devEmail,
+          name: adminName,
+          passwordHash,
+          role: adminRole,
+          isActive: true,
+          mfaEnabled: false,
+        },
+      });
+      console.log(`✓ Created development administrator: ${devEmail} (Role: ${adminRole})`);
+    } else {
+      if (process.env.RESET_ADMIN_ON_SEED === "true") {
+        const passwordHash = await hashPassword(devPassword);
+        await prisma.adminUser.update({
+          where: { email: devEmail },
+          data: {
+            passwordHash,
+            isActive: true,
+            role: adminRole,
+          },
+        });
+        console.log(`✓ Updated development administrator: ${devEmail}`);
+      } else {
+        console.log(`✓ Administrator account verified: ${devEmail} (Role: ${existingAdmin.role})`);
+      }
+    }
+  }
+
+  // 2. Seed Internship Opportunities
   for (const opp of initialOpportunities) {
     await prisma.internshipOpportunity.upsert({
       where: { slug: opp.slug },
@@ -157,6 +279,7 @@ async function main() {
     console.log(`Upserted internship opportunity: ${opp.title}`);
   }
 
+  // 3. Seed Projects
   for (const proj of initialProjects) {
     await prisma.project.upsert({
       where: { slug: proj.slug },

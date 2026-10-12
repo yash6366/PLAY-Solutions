@@ -31,6 +31,15 @@ export interface AuditLogRecord {
   createdAt: Date;
 }
 
+export class DatabaseConnectionError extends Error {
+  code: string;
+  constructor(message: string, code: string = "DATABASE_UNAVAILABLE") {
+    super(message);
+    this.name = "DatabaseConnectionError";
+    this.code = code;
+  }
+}
+
 export const inMemoryAdmins: AdminUserRecord[] = [];
 export const inMemoryAuditLogs: AuditLogRecord[] = [];
 
@@ -49,12 +58,23 @@ export async function findAdminByEmail(
     return inMemoryAdmins.find((u) => u.email === normalizedEmail) || null;
   }
 
-  if (!getIsDatabaseConfigured() || !prisma) {
-    return null;
+  if (!getIsDatabaseConfigured()) {
+    throw new DatabaseConnectionError(
+      "Database is unconfigured. Set DATABASE_URL to connect to PostgreSQL.",
+      "DATABASE_NOT_CONFIGURED"
+    );
+  }
+
+  const client = prisma;
+  if (!client) {
+    throw new DatabaseConnectionError(
+      "Database client could not be initialized.",
+      "CLIENT_INIT_FAILED"
+    );
   }
 
   try {
-    const user = await prisma.adminUser.findUnique({
+    const user = await client.adminUser.findUnique({
       where: { email: normalizedEmail },
     });
 
@@ -75,9 +95,16 @@ export async function findAdminByEmail(
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
-  } catch (err) {
-    console.error("[AdminRepository Error] findAdminByEmail failed:", (err as Error)?.name);
-    return null;
+  } catch (err: unknown) {
+    if (err instanceof DatabaseConnectionError) {
+      throw err;
+    }
+    const errorCode = (err as { code?: string })?.code || "UNREACHABLE";
+    console.error(`[AdminRepository Error] findAdminByEmail query failed: ${errorCode}`);
+    throw new DatabaseConnectionError(
+      `PostgreSQL query failed: ${errorCode}`,
+      errorCode
+    );
   }
 }
 
@@ -91,7 +118,7 @@ export async function findAdminById(
     return inMemoryAdmins.find((u) => u.id === id) || null;
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return null;
   }
 
@@ -163,7 +190,7 @@ export async function createAdminUser(data: {
     return { success: true, user: record };
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return {
       success: false,
       error: "DATABASE_NOT_CONFIGURED: Connect PostgreSQL via DATABASE_URL to create admin users.",
@@ -235,7 +262,7 @@ export async function updateAdminMfa(
     return { success: true };
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return { success: false, error: "Database not configured" };
   }
 
@@ -269,7 +296,7 @@ export async function updateAdminLastMfaStep(id: string, step: number): Promise<
     return;
   }
 
-  if (!isDatabaseConfigured || !prisma) return;
+  if (!getIsDatabaseConfigured() || !prisma) return;
 
   try {
     await prisma.adminUser.update({
@@ -297,7 +324,7 @@ export async function resetAdminMfa(id: string): Promise<{ success: boolean; err
     return { success: true };
   }
 
-  if (!isDatabaseConfigured || !prisma) {
+  if (!getIsDatabaseConfigured() || !prisma) {
     return { success: false, error: "Database not configured" };
   }
 
@@ -332,7 +359,7 @@ export async function revokeAdminSessions(id: string): Promise<void> {
     return;
   }
 
-  if (!isDatabaseConfigured || !prisma) return;
+  if (!getIsDatabaseConfigured() || !prisma) return;
 
   try {
     await prisma.adminUser.update({
@@ -356,7 +383,7 @@ export async function consumeRecoveryCode(id: string, codeIndex: number): Promis
     return true;
   }
 
-  if (!isDatabaseConfigured || !prisma) return false;
+  if (!getIsDatabaseConfigured() || !prisma) return false;
 
   try {
     const user = await prisma.adminUser.findUnique({ where: { id } });
@@ -384,7 +411,7 @@ export async function updateAdminLastLogin(id: string): Promise<void> {
     return;
   }
 
-  if (!isDatabaseConfigured || !prisma) return;
+  if (!getIsDatabaseConfigured() || !prisma) return;
 
   try {
     await prisma.adminUser.update({
